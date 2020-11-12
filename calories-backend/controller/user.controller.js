@@ -30,9 +30,24 @@ class UserController {
     };
     userLogin = (req, res) => {
         try {
-            response.success = true;
-            response.message = "User Login Success.";
-            res.status(200).send(response);
+            req.checkBody('email', 'Invalid Email ID!').notEmpty().isEmail();
+            req.checkBody('password', 'Invalid Password!').notEmpty();
+
+            let validationErrors = req.validationErrors();
+
+            if (validationErrors) {
+                response.success = false;
+                response.message = "Invalid Credentials!";
+                response.error = validationErrors;
+                return res.status(500).send(response);
+            } else {
+
+                response.success = true;
+                response.message = "User Login Successfull";
+                response.data = req.body;
+                return res.status(200).send(response);
+
+            }
         } catch (error) {
 
             response.success = false;
