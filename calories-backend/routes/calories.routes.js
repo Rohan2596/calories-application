@@ -1,5 +1,6 @@
 const route = require('express').Router();
 const userController=require('../controller/user.controller');
+const mealsController=require('../controller/meal.controller')
 
 /*
   @author  :- Rohan Ravindra Kadam 
@@ -18,8 +19,8 @@ route.post('/user/password/reset/:token',userController.resetPassword);
   @author   :- Rohan Ravindra Kadam
   @Purpose  :- Meals routes for add, updating and getting. 
 */
-route.post('/meal/add');
-route.put('/meal/edit');
+route.post('/meal/add/:token',mealsController.addMeal);
+route.put('/meal/edit/:token/:id',);
 route.get('/meal/remove');
 route.get('/meal/all')
 
