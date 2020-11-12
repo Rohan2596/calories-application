@@ -9,7 +9,7 @@ const userController=require('../controller/user.controller');
 */
 route.post('/user/add',userController.userRegister);
 route.post('/user/auth',userController.userLogin);
-route.get('/user/detail',userController.userDetails);
+route.get('/user/detail/:token',userController.userDetails);
 route.get('/user/all',userController.getAllUser);
 route.get('/user/password/forgot',userController.forgotPassword);
 route.post('/user/password/reset',userController.resetPassword);

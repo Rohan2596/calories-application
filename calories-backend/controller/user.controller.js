@@ -28,7 +28,7 @@ class UserController {
 
         }
     };
-    userLogin = (req, res) => {
+    userLogin = (req, res, next) => {
         try {
             req.checkBody('email', 'Invalid Email ID!').notEmpty().isEmail();
             req.checkBody('password', 'Invalid Password!').notEmpty();
@@ -50,22 +50,27 @@ class UserController {
             }
         } catch (error) {
 
-            response.success = false;
-            response.message = "User Login Failed.";
-            res.status(500).send(response);
+            next(error)
+
 
         }
     };
-    userDetails = (req, res) => {
+    userDetails = (req, res, next) => {
         try {
-            response.success = true;
-            response.message = "User Details Success.";
-            res.status(200).send(response);
+            let token = req.params.token;
+            console.log(token);
+            if (token) {
+                response.success = true;
+                response.message = "User Details Success.";
+                res.status(200).send(response);
+            } else {
+                response.success = false;
+                response.message = "User Details Failed.";
+                res.status(400).send(response);
+            }
         } catch (error) {
 
-            response.success = false;
-            response.message = "User Details Failed.";
-            res.status(500).send(response);
+            next(error)
 
         }
     };
