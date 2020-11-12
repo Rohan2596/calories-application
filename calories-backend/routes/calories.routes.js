@@ -1,5 +1,5 @@
 const route = require('express').Router();
-
+const userController=require('../controller/user.controller');
 
 /*
   @author  :- Rohan Ravindra Kadam 
@@ -7,7 +7,7 @@ const route = require('express').Router();
                ,password updation and many more.
   
 */
-route.post('/user/add');
+route.post('/user/add',userController.userRegister);
 route.post('/user/auth');
 route.get('/user/detail');
 route.get('/user/all');
