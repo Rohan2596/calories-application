@@ -21,8 +21,8 @@ route.post('/user/password/reset/:token',userController.resetPassword);
 */
 route.post('/meal/add/:token',mealsController.addMeal);
 route.put('/meal/edit/:token/:id',mealsController.editMeal);
-route.get('/meal/remove');
-route.get('/meal/all')
+route.delete('/meal/remove/:token/:id',mealsController.deleteMeal);
+route.get('/meal/all/:token')
 
 
 module.exports=route;

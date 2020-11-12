@@ -15,10 +15,10 @@ class MealController {
                 console.log(validationErrors);
                 return res.status(500).send(response);
             } else {
-        
+
                 response.success = true;
                 response.message = "Meals Added Successfully.";
-                response.data =req.body;
+                response.data = req.body;
                 return res.status(200).send(response);
             }
 
@@ -27,7 +27,7 @@ class MealController {
             next(error)
         }
     };
-    editMeal=(req, res, next)=>{
+    editMeal = (req, res, next) => {
         try {
             req.checkBody('title', 'Invalid Meal Title!').notEmpty().isAlpha().isLength({ min: '2' });
             req.checkBody('caloriesCount', 'Invalid Calories Count !').notEmpty().isNumeric().isLength({ min: '1' });
@@ -40,11 +40,32 @@ class MealController {
                 console.log(validationErrors);
                 return res.status(500).send(response);
             } else {
-        
+
                 response.success = true;
                 response.message = "Meals Edited Successfully.";
-                response.data =req.body;
+                response.data = req.body;
                 return res.status(200).send(response);
+            }
+
+
+        } catch (error) {
+            next(error)
+        }
+    };
+    deleteMeal = (req, res, next) => {
+        try {
+            let mealId = req.params.id;
+            if (mealId) {
+
+                response.success = true;
+                response.message = "Meals Delete Successfully.";
+                response.data = req.body;
+                return res.status(200).send(response);
+            } else {
+                response.success = false;
+                response.message = "Invalid Meals Id!";
+                return res.status(500).send(response);
+
             }
 
 
