@@ -12,7 +12,7 @@ route.post('/user/auth',userController.userLogin);
 route.get('/user/detail/:token',userController.userDetails);
 route.get('/user/all',userController.getAllUser);
 route.get('/user/password/forgot',userController.forgotPassword);
-route.post('/user/password/reset',userController.resetPassword);
+route.post('/user/password/reset/:token',userController.resetPassword);
 
 /*
   @author   :- Rohan Ravindra Kadam

@@ -87,17 +87,27 @@ class UserController {
 
         }
     };
-    forgotPassword = (req, res) => {
+    forgotPassword = (req, res, next) => {
         try {
-            response.success = true;
-            response.message = "Password Forgot Success.";
-            res.status(200).send(response);
+            req.checkBody('email', 'Email ID is required!').notEmpty();
+            req.checkBody('email', 'Invalid Email ID!').isEmail();
+
+            let validationErrors = req.validationErrors();
+
+            if (validationErrors) {
+                response.success = false;
+                response.message = "Invalid Credentials!";
+                response.error = errors;
+                return res.status(500).send(response);
+            } else {
+                response.success = false;
+                response.message = "User Password forgot Successfully.";
+                response.data=req.body
+                return res.status(200).send(response);
+
+            }
         } catch (error) {
-
-            response.success = false;
-            response.message = "Password Forgot Failed.";
-            res.status(500).send(response);
-
+            next(error)
         }
     };
     resetPassword = (req, res) => {
