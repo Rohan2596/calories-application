@@ -20,7 +20,7 @@ route.post('/user/password/reset/:token',userController.resetPassword);
   @Purpose  :- Meals routes for add, updating and getting. 
 */
 route.post('/meal/add/:token',mealsController.addMeal);
-route.put('/meal/edit/:token/:id',);
+route.put('/meal/edit/:token/:id',mealsController.editMeal);
 route.get('/meal/remove');
 route.get('/meal/all')
 
