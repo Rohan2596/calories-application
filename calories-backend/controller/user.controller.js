@@ -1,82 +1,96 @@
-const response={};
+const response = {};
 class UserController {
 
-    userRegister = (req, res) => {
+    userRegister = (req, res, next) => {
         try {
-            response.success=true;
-            response.message="User Registration Success.";
-           res.status(200).send(response);
+            req.checkBody('firstName', 'Invalid First Name!').notEmpty().isAlpha().isLength({ min: '2' });
+            req.checkBody('lastName', 'Invalid Last Name!').notEmpty().isAlpha().isLength({ min: '3' });
+            req.checkBody('email', 'Invalid Email ID!').notEmpty().isEmail();
+            req.checkBody('mobile', 'Invalid Mobile Number!').notEmpty().isMobilePhone().isLength({ min: '10', max: '10' });
+            req.checkBody('password', 'Invalid Password!').notEmpty().isLength({ min: '8', max: '8' });
+            let validationErrors = req.validationErrors();
+            if (validationErrors) {
+
+                response.success = false;
+                response.message = "Invalid Credentials!";
+                response.error = validationErrors;
+                return res.status(500).send(response);
+            } else {
+                console.log(req.body);
+                response.success = true;
+                response.message = "User Registration Success.";
+                return res.status(200).send(response);
+            }
+
         } catch (error) {
 
-            response.success=false;
-            response.message="User Registration Failed.";
-            res.status(500).send(response);
-        
+            next(error)
+
         }
     };
-    userLogin=(req,res)=>{
+    userLogin = (req, res) => {
         try {
-            response.success=true;
-            response.message="User Login Success.";
-           res.status(200).send(response);
+            response.success = true;
+            response.message = "User Login Success.";
+            res.status(200).send(response);
         } catch (error) {
 
-            response.success=false;
-            response.message="User Login Failed.";
+            response.success = false;
+            response.message = "User Login Failed.";
             res.status(500).send(response);
-        
+
         }
     };
-    userDetails=(req,res)=>{
+    userDetails = (req, res) => {
         try {
-            response.success=true;
-            response.message="User Details Success.";
-           res.status(200).send(response);
+            response.success = true;
+            response.message = "User Details Success.";
+            res.status(200).send(response);
         } catch (error) {
 
-            response.success=false;
-            response.message="User Details Failed.";
+            response.success = false;
+            response.message = "User Details Failed.";
             res.status(500).send(response);
-        
+
         }
     };
-    getAllUser=(req,res)=>{
+    getAllUser = (req, res) => {
         try {
-            response.success=true;
-            response.message="Get All User Success.";
-           res.status(200).send(response);
+            response.success = true;
+            response.message = "Get All User Success.";
+            res.status(200).send(response);
         } catch (error) {
 
-            response.success=false;
-            response.message="Get All User Failed.";
+            response.success = false;
+            response.message = "Get All User Failed.";
             res.status(500).send(response);
-        
+
         }
     };
-    forgotPassword=(req,res)=>{
+    forgotPassword = (req, res) => {
         try {
-            response.success=true;
-            response.message="Password Forgot Success.";
-           res.status(200).send(response);
+            response.success = true;
+            response.message = "Password Forgot Success.";
+            res.status(200).send(response);
         } catch (error) {
 
-            response.success=false;
-            response.message="Password Forgot Failed.";
+            response.success = false;
+            response.message = "Password Forgot Failed.";
             res.status(500).send(response);
-        
+
         }
     };
-    resetPassword=(req,res)=>{
+    resetPassword = (req, res) => {
         try {
-            response.success=true;
-            response.message="Password Reset Success.";
-           res.status(200).send(response);
+            response.success = true;
+            response.message = "Password Reset Success.";
+            res.status(200).send(response);
         } catch (error) {
 
-            response.success=false;
-            response.message="Password Reset Failed.";
+            response.success = false;
+            response.message = "Password Reset Failed.";
             res.status(500).send(response);
-        
+
         }
     }
 
