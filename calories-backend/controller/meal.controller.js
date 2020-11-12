@@ -59,7 +59,28 @@ class MealController {
 
                 response.success = true;
                 response.message = "Meals Delete Successfully.";
-                response.data = req.body;
+                response.data = mealId;
+                return res.status(200).send(response);
+            } else {
+                response.success = false;
+                response.message = "Invalid Meals Id!";
+                return res.status(500).send(response);
+
+            }
+
+
+        } catch (error) {
+            next(error)
+        }
+    };
+    getAllUserMeals = (req, res, next) => {
+        try {
+            let mealId = req.params.token;
+            if (mealId) {
+            
+                response.success = true;
+                response.message = "Getting All Meals Successfully.";
+                response.data = mealId;
                 return res.status(200).send(response);
             } else {
                 response.success = false;
