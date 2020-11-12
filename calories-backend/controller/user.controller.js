@@ -110,19 +110,28 @@ class UserController {
             next(error)
         }
     };
-    resetPassword = (req, res) => {
+    resetPassword = (req, res,next) => {
         try {
-            response.success = true;
-            response.message = "Password Reset Success.";
-            res.status(200).send(response);
+
+            req.checkBody('password', 'Invalid Password!').notEmpty().equals(req.body.confirmPassword);
+
+            let validationErrors = req.validationErrors();
+
+            if (validationErrors) {
+                response.success = false;
+                response.message = "Invalid Credentials!";
+                response.error = validationErrors;
+                return res.status(500).send(response);
+            } else {
+                    response.success = true;
+                    response.message = "User Password Reset Successfully.";
+                    response.data = req.body;
+                    return res.status(200).send(response);
+            
+            }
         } catch (error) {
-
-            response.success = false;
-            response.message = "Password Reset Failed.";
-            res.status(500).send(response);
-
+            next(error)
         }
     }
-
 }
 module.exports = new UserController();
