@@ -87,6 +87,8 @@ class UserController {
                 response.error = ""
                 res.status(200).send(response);
             } else {
+
+                userService.getUser(token);
                 response.success = false;
                 response.message = "User Details Failed.";
                 response.data = token;

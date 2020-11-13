@@ -24,6 +24,14 @@ class UserService {
         } catch (error) {
             next(error)
         }
+    };
+    getUser=(req,next)=>{
+        try {
+            let token = req
+            console.log("Inside User Service",token);
+        } catch (error) {
+            next(error)
+        }
     }
 }
 module.exports = new UserService();
