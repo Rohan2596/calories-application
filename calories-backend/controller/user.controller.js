@@ -1,6 +1,6 @@
-const { error } = require("console");
-
 const response = {};
+const userService = require('../service/user.service')
+
 class UserController {
 
     userRegister = (req, res, next) => {
@@ -18,12 +18,23 @@ class UserController {
                 response.error = validationErrors;
                 return res.status(500).send(response);
             } else {
-                console.log(req.body);
+                const user = {
+                    'firstName': req.body.firstName,
+                    'lastName': req.body.lastName,
+                    'email': req.body.email,
+                    'mobile': req.body.mobile,
+                    'password': req.body.password
+                }
+
+                userService.addUser(user);
                 response.success = true;
                 response.message = "User Registration Success.";
-                response.data=req.body;
-                response.error=""
+                response.data = user;
+                response.error = ""
                 return res.status(200).send(response);
+
+
+
             }
 
         } catch (error) {
@@ -43,14 +54,14 @@ class UserController {
                 response.success = false;
                 response.message = "Invalid Credentials!";
                 response.error = validationErrors;
-                response.data=req.body;
+                response.data = req.body;
                 return res.status(500).send(response);
             } else {
 
                 response.success = true;
                 response.message = "User Login Successfull";
-                response.data=req.body;
-                response.error=""
+                response.data = req.body;
+                response.error = ""
                 return res.status(200).send(response);
 
             }
@@ -68,14 +79,14 @@ class UserController {
             if (token) {
                 response.success = true;
                 response.message = "User Details Success.";
-                response.data=token;
-                response.error=""
+                response.data = token;
+                response.error = ""
                 res.status(200).send(response);
             } else {
                 response.success = false;
                 response.message = "User Details Failed.";
-                response.data=token;
-                response.error="invalid Token "
+                response.data = token;
+                response.error = "invalid Token "
                 res.status(400).send(response);
             }
         } catch (error) {
@@ -84,7 +95,7 @@ class UserController {
 
         }
     };
-    getAllUser = (req, res,next) => {
+    getAllUser = (req, res, next) => {
         try {
             response.success = true;
             response.message = "Get All User Success.";
@@ -108,13 +119,13 @@ class UserController {
                 response.success = false;
                 response.message = "Invalid Credentials!";
                 response.error = errors;
-                response.data=req.body
+                response.data = req.body
                 return res.status(500).send(response);
             } else {
                 response.success = false;
                 response.message = "User Password forgot Successfully.";
-                response.data=req.body
-                response.error=""
+                response.data = req.body
+                response.error = ""
                 return res.status(200).send(response);
 
             }
@@ -122,7 +133,7 @@ class UserController {
             next(error)
         }
     };
-    resetPassword = (req, res,next) => {
+    resetPassword = (req, res, next) => {
         try {
 
             req.checkBody('password', 'Invalid Password!').notEmpty().equals(req.body.confirmPassword).isLength({ min: '8', max: '8' });
@@ -133,15 +144,15 @@ class UserController {
                 response.success = false;
                 response.message = "Invalid Credentials!";
                 response.error = validationErrors;
-                response.data=req.body
+                response.data = req.body
                 return res.status(500).send(response);
             } else {
-                    response.success = true;
-                    response.message = "User Password Reset Successfully.";
-                    response.data = req.body;
-                    response.error=""
-                    return res.status(200).send(response);
-            
+                response.success = true;
+                response.message = "User Password Reset Successfully.";
+                response.data = req.body;
+                response.error = ""
+                return res.status(200).send(response);
+
             }
         } catch (error) {
             next(error)
