@@ -1,3 +1,5 @@
+const { error } = require("console");
+
 const response = {};
 class UserController {
 
@@ -19,6 +21,8 @@ class UserController {
                 console.log(req.body);
                 response.success = true;
                 response.message = "User Registration Success.";
+                response.data=req.body;
+                response.error=""
                 return res.status(200).send(response);
             }
 
@@ -31,7 +35,7 @@ class UserController {
     userLogin = (req, res, next) => {
         try {
             req.checkBody('email', 'Invalid Email ID!').notEmpty().isEmail();
-            req.checkBody('password', 'Invalid Password!').notEmpty();
+            req.checkBody('password', 'Invalid Password!').notEmpty().isLength({ min: '8', max: '8' });
 
             let validationErrors = req.validationErrors();
 
@@ -39,12 +43,14 @@ class UserController {
                 response.success = false;
                 response.message = "Invalid Credentials!";
                 response.error = validationErrors;
+                response.data=req.body;
                 return res.status(500).send(response);
             } else {
 
                 response.success = true;
                 response.message = "User Login Successfull";
-                response.data = req.body;
+                response.data=req.body;
+                response.error=""
                 return res.status(200).send(response);
 
             }
@@ -62,10 +68,14 @@ class UserController {
             if (token) {
                 response.success = true;
                 response.message = "User Details Success.";
+                response.data=token;
+                response.error=""
                 res.status(200).send(response);
             } else {
                 response.success = false;
                 response.message = "User Details Failed.";
+                response.data=token;
+                response.error="invalid Token "
                 res.status(400).send(response);
             }
         } catch (error) {
@@ -74,7 +84,7 @@ class UserController {
 
         }
     };
-    getAllUser = (req, res) => {
+    getAllUser = (req, res,next) => {
         try {
             response.success = true;
             response.message = "Get All User Success.";
@@ -98,11 +108,13 @@ class UserController {
                 response.success = false;
                 response.message = "Invalid Credentials!";
                 response.error = errors;
+                response.data=req.body
                 return res.status(500).send(response);
             } else {
                 response.success = false;
                 response.message = "User Password forgot Successfully.";
                 response.data=req.body
+                response.error=""
                 return res.status(200).send(response);
 
             }
@@ -113,7 +125,7 @@ class UserController {
     resetPassword = (req, res,next) => {
         try {
 
-            req.checkBody('password', 'Invalid Password!').notEmpty().equals(req.body.confirmPassword);
+            req.checkBody('password', 'Invalid Password!').notEmpty().equals(req.body.confirmPassword).isLength({ min: '8', max: '8' });
 
             let validationErrors = req.validationErrors();
 
@@ -121,11 +133,13 @@ class UserController {
                 response.success = false;
                 response.message = "Invalid Credentials!";
                 response.error = validationErrors;
+                response.data=req.body
                 return res.status(500).send(response);
             } else {
                     response.success = true;
                     response.message = "User Password Reset Successfully.";
                     response.data = req.body;
+                    response.error=""
                     return res.status(200).send(response);
             
             }
