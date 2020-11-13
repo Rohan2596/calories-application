@@ -14,5 +14,16 @@ class UserService {
             next(error)
         }
     };
+    authUser=(req,next)=>{
+        try {
+            let auth = {
+                "email": req.email,
+                "password": req.password
+            }
+            console.log("Inside User Service",auth);
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 module.exports = new UserService();

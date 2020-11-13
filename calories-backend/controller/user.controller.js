@@ -57,10 +57,14 @@ class UserController {
                 response.data = req.body;
                 return res.status(500).send(response);
             } else {
-
+                const login = {
+                    'email': req.body.email,
+                    'password': req.body.password
+                }
+                userService.authUser(login)
                 response.success = true;
                 response.message = "User Login Successfull";
-                response.data = req.body;
+                response.data = login;
                 response.error = ""
                 return res.status(200).send(response);
 
