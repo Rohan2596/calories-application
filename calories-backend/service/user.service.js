@@ -9,33 +9,51 @@ class UserService {
                 "mobile": req.mobile,
                 "password": req.password
             }
-            console.log("Inside User Service",user);
+            console.log("Inside User Service", user);
         } catch (error) {
             next(error)
         }
     };
-    authUser=(req,next)=>{
+    authUser = (req, next) => {
         try {
             let auth = {
                 "email": req.email,
                 "password": req.password
             }
-            console.log("Inside User Service",auth);
+            console.log("Inside User Service", auth);
         } catch (error) {
             next(error)
         }
     };
-    getUser=(req,next)=>{
+    getUser = (req, next) => {
         try {
             let token = req
-            console.log("Inside User Service",token);
+            console.log("Inside User Service", token);
         } catch (error) {
             next(error)
         }
     };
-    getAllUser=(next)=>{
+    getAllUser = (next) => {
         try {
-            console.log("Inside User Service","ALLL");
+            console.log("Inside User Service", "ALLL");
+        } catch (error) {
+            next(error)
+        }
+    };
+    forgotPassword = (req, next) => {
+        try {
+            let email = req
+            console.log("Inside User Service", email);
+
+        } catch (error) {
+            next(error)
+        }
+    };
+    resetPassword=(req,next)=>{
+        try {
+            let password = req
+            console.log("Inside User Service", password);
+
         } catch (error) {
             next(error)
         }

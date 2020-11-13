@@ -128,6 +128,7 @@ class UserController {
                 response.data = req.body
                 return res.status(500).send(response);
             } else {
+                userService.forgotPassword(req.body.email);
                 response.success = false;
                 response.message = "User Password forgot Successfully.";
                 response.data = req.body
@@ -153,6 +154,7 @@ class UserController {
                 response.data = req.body
                 return res.status(500).send(response);
             } else {
+                userService.resetPassword(req.body.password)
                 response.success = true;
                 response.message = "User Password Reset Successfully.";
                 response.data = req.body;
