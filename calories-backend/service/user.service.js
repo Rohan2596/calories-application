@@ -32,6 +32,13 @@ class UserService {
         } catch (error) {
             next(error)
         }
+    };
+    getAllUser=(next)=>{
+        try {
+            console.log("Inside User Service","ALLL");
+        } catch (error) {
+            next(error)
+        }
     }
 }
 module.exports = new UserService();

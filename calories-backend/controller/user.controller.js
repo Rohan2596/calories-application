@@ -81,6 +81,7 @@ class UserController {
             let token = req.params.token;
             console.log(token);
             if (token) {
+                userService.getUser(token);
                 response.success = true;
                 response.message = "User Details Success.";
                 response.data = token;
@@ -88,7 +89,6 @@ class UserController {
                 res.status(200).send(response);
             } else {
 
-                userService.getUser(token);
                 response.success = false;
                 response.message = "User Details Failed.";
                 response.data = token;
@@ -101,13 +101,13 @@ class UserController {
 
         }
     };
-    getAllUser = (req, res, next) => {
+    getAllUser = (req,res,next) => {
         try {
+            userService.getAllUser();
             response.success = true;
             response.message = "Get All User Success.";
             res.status(200).send(response);
         } catch (error) {
-
             response.success = false;
             response.message = "Get All User Failed.";
             res.status(500).send(response);
