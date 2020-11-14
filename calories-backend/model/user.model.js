@@ -63,6 +63,30 @@ class UserModel {
                 })
             })
         } catch (error) {
+            next(error);
+
+        }
+    };
+    login=(req,next)=>{
+        try {
+            return new Promise((resolve, reject) => {
+                userModel.findOne({
+                    'email': req.email
+                }).then(result => {
+                    if (result) {
+                        resolve({
+                            message: 'Login Successfull!', data: result
+                        })
+                       
+                    } else {
+                        reject({ message: 'User doesnot Exists in system.',data:req.email })
+
+                    }
+                }).catch(err => {
+                    reject(err)
+                })
+            })
+        } catch (error) {
             console.log(error);
             next(error);
 

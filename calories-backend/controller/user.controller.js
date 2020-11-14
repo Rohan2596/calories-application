@@ -1,10 +1,10 @@
-const response = {};
 const userService = require('../service/user.service')
 
 class UserController {
 
     userRegister = (req, res, next) => {
         try {
+            let response = {};
             req.checkBody('firstName', 'Invalid First Name!').notEmpty().isAlpha().isLength({ min: '2' });
             req.checkBody('lastName', 'Invalid Last Name!').notEmpty().isAlpha().isLength({ min: '3' });
             req.checkBody('email', 'Invalid Email ID!').notEmpty().isEmail();
@@ -29,7 +29,7 @@ class UserController {
                 userService.addUser(user).then((data) => {
                     response.success = true;
                     response.message = data.message;
-                    response.data = data;
+                    response.data = data.data;
                     response.error = ""
                     return res.status(200).send(response);
                 }).catch((error) => {
@@ -47,6 +47,7 @@ class UserController {
     };
     userLogin = (req, res, next) => {
         try {
+            let response = {};
             req.checkBody('email', 'Invalid Email ID!').notEmpty().isEmail();
             req.checkBody('password', 'Invalid Password!').notEmpty().isLength({ min: '8', max: '8' });
 
@@ -63,12 +64,20 @@ class UserController {
                     'email': req.body.email,
                     'password': req.body.password
                 }
-                userService.authUser(login)
-                response.success = true;
-                response.message = "User Login Successfull";
-                response.data = login;
-                response.error = ""
-                return res.status(200).send(response);
+                userService.authUser(login).then((login) => {
+                    response.success = true;
+                    response.message = login.message;
+                    response.data = login.data;
+                    response.error = ""
+                    return res.status(200).send(response);
+                }).catch((error) => {
+                    response.success = false
+                    response.message = login.message;
+                    response.data = login;
+                    response.error = data.error
+                    return res.status(400).send(response);
+                }
+                );
 
             }
         } catch (error) {
@@ -80,6 +89,7 @@ class UserController {
     };
     userDetails = (req, res, next) => {
         try {
+            const response = {};
             let token = req.params.token;
             console.log(token);
             if (token) {
@@ -105,6 +115,7 @@ class UserController {
     };
     getAllUser = (req, res, next) => {
         try {
+            const response = {};
             userService.getAllUser();
             response.success = true;
             response.message = "Get All User Success.";
@@ -118,6 +129,8 @@ class UserController {
     };
     forgotPassword = (req, res, next) => {
         try {
+            const response = {};
+
             req.checkBody('email', 'Email ID is required!').notEmpty();
             req.checkBody('email', 'Invalid Email ID!').isEmail();
 
@@ -144,6 +157,7 @@ class UserController {
     };
     resetPassword = (req, res, next) => {
         try {
+            const response = {};
 
             req.checkBody('password', 'Invalid Password!').notEmpty().equals(req.body.confirmPassword).isLength({ min: '8', max: '8' });
 

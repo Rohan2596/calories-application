@@ -1,4 +1,4 @@
-const userModel=require('../model/user.model');
+const userModel = require('../model/user.model');
 class UserService {
 
     addUser = (req, next) => {
@@ -10,7 +10,6 @@ class UserService {
                 "mobile": req.mobile,
                 "password": req.password
             }
-            console.log("Inside User Service", user);
             return userModel.register(user).then((data) => {
                 return data;
             }).catch((err) => {
@@ -26,7 +25,12 @@ class UserService {
                 "email": req.email,
                 "password": req.password
             }
-            console.log("Inside User Service", auth);
+            return userModel.login(auth).then((data) => {
+                console.log(data);
+                return data;
+            }).catch((err) => {
+                return err;
+            });
         } catch (error) {
             next(error)
         }
@@ -55,7 +59,7 @@ class UserService {
             next(error)
         }
     };
-    resetPassword=(req,next)=>{
+    resetPassword = (req, next) => {
         try {
             let password = req
             console.log("Inside User Service", password);
