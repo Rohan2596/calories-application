@@ -1,5 +1,5 @@
 const { response } = require("express");
-
+const mealService=require('../service/meal.service')
 class MealController {
 
     addMeal = (req, res, next) => {
@@ -15,7 +15,7 @@ class MealController {
                 response.data=req.body
                 return res.status(500).send(response);
             } else {
-
+                mealService.addMeal(req.body);
                 response.success = true;
                 response.message = "Meals Added Successfully.";
                 response.data = req.body;
