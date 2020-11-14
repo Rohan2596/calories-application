@@ -7,6 +7,10 @@ const createError=require('http-errors')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 
+//Database Connection
+require('../calories-backend/configuration/database.connection')
+
+
 //Express Validator
 const expressValidator=require('express-validator');
 app.use(expressValidator());

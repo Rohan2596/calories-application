@@ -1,3 +1,4 @@
+const userModel=require('../model/user.model');
 class UserService {
 
     addUser = (req, next) => {
@@ -10,6 +11,11 @@ class UserService {
                 "password": req.password
             }
             console.log("Inside User Service", user);
+            return userModel.register(user).then((data) => {
+                return data;
+            }).catch((err) => {
+                return err;
+            });
         } catch (error) {
             next(error)
         }

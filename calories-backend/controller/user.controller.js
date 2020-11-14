@@ -26,21 +26,23 @@ class UserController {
                     'password': req.body.password
                 }
 
-                userService.addUser(user);
-                response.success = true;
-                response.message = "User Registration Success.";
-                response.data = user;
-                response.error = ""
-                return res.status(200).send(response);
-
-
-
+                userService.addUser(user).then((data) => {
+                    response.success = true;
+                    response.message = data.message;
+                    response.data = data;
+                    response.error = ""
+                    return res.status(200).send(response);
+                }).catch((error) => {
+                    response.success = false
+                    response.message = data.message;
+                    response.data = user;
+                    response.error = data.error
+                    return res.status(400).send(response);
+                }
+                );
             }
-
         } catch (error) {
-
             next(error)
-
         }
     };
     userLogin = (req, res, next) => {
@@ -101,7 +103,7 @@ class UserController {
 
         }
     };
-    getAllUser = (req,res,next) => {
+    getAllUser = (req, res, next) => {
         try {
             userService.getAllUser();
             response.success = true;
