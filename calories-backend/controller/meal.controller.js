@@ -41,7 +41,7 @@ class MealController {
                 response.data=req.body
                 return res.status(500).send(response);
             } else {
-
+                mealService.editMeal(req.body);
                 response.success = true;
                 response.message = "Meals Edited Successfully.";
                 response.data = req.body;
@@ -58,7 +58,8 @@ class MealController {
         try {
             let mealId = req.params.id;
             if (mealId) {
-
+                
+                mealService.deleteMeal(mealId);
                 response.success = true;
                 response.message = "Meals Delete Successfully.";
                 response.data = mealId;
