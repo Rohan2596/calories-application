@@ -93,14 +93,21 @@ class UserController {
             let token = req.params.token;
             console.log(token);
             if (token) {
-                userService.getUser(token);
-                response.success = true;
-                response.message = "User Details Success.";
-                response.data = token;
-                response.error = ""
-                res.status(200).send(response);
+                userService.getUser(token).then((user) => {
+                    response.success = true;
+                    response.message = user.message;
+                    response.data = user.data;
+                    response.error = ""
+                    return res.status(200).send(response);
+                }).catch((error) => {
+                    response.success = false
+                    response.message = user.message;
+                    response.data = token;
+                    response.error = data.error
+                    return res.status(400).send(response);
+                }
+                );
             } else {
-
                 response.success = false;
                 response.message = "User Details Failed.";
                 response.data = token;
@@ -108,9 +115,7 @@ class UserController {
                 res.status(400).send(response);
             }
         } catch (error) {
-
             next(error)
-
         }
     };
     getAllUser = (req, res, next) => {

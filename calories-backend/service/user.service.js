@@ -38,7 +38,11 @@ class UserService {
     getUser = (req, next) => {
         try {
             let token = req
-            console.log("Inside User Service", token);
+            return userModel.getUserDetails(token).then((data) => {
+                return data;
+            }).catch((err) => {
+                return err;
+            });
         } catch (error) {
             next(error)
         }

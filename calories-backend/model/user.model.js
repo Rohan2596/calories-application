@@ -87,9 +87,28 @@ class UserModel {
                 })
             })
         } catch (error) {
-            console.log(error);
             next(error);
-
+        }
+    };
+    getUserDetails=(req,next)=>{
+        try {
+            return new Promise((resolve, reject) => {
+                userModel.findOne({
+                    'email': req
+                }).then(result => {
+                    if (result) {
+                        resolve({
+                            message: 'User Details', data: result
+                        })    
+                    } else {
+                        reject({ message: 'User doesnot Exists in system.',data:req.email })
+                    }
+                }).catch(err => {
+                    reject(err)
+                })
+            }) 
+        } catch (error) {
+            next(error)
         }
     }
 }
