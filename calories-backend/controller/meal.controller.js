@@ -1,5 +1,5 @@
 const { response } = require("express");
-const mealService=require('../service/meal.service')
+const mealService = require('../service/meal.service')
 class MealController {
 
     addMeal = (req, res, next) => {
@@ -12,14 +12,14 @@ class MealController {
                 response.success = false;
                 response.message = "Invalid Meals Input!";
                 response.error = validationErrors;
-                response.data=req.body
+                response.data = req.body
                 return res.status(500).send(response);
             } else {
                 mealService.addMeal(req.body);
                 response.success = true;
                 response.message = "Meals Added Successfully.";
                 response.data = req.body;
-                response.error=""
+                response.error = ""
                 return res.status(200).send(response);
             }
 
@@ -38,14 +38,14 @@ class MealController {
                 response.success = false;
                 response.message = "Invalid Meals Input!";
                 response.error = validationErrors;
-                response.data=req.body
+                response.data = req.body
                 return res.status(500).send(response);
             } else {
                 mealService.editMeal(req.body);
                 response.success = true;
                 response.message = "Meals Edited Successfully.";
                 response.data = req.body;
-                response.error=""
+                response.error = ""
                 return res.status(200).send(response);
             }
 
@@ -58,18 +58,18 @@ class MealController {
         try {
             let mealId = req.params.id;
             if (mealId) {
-                
+
                 mealService.deleteMeal(mealId);
                 response.success = true;
                 response.message = "Meals Delete Successfully.";
                 response.data = mealId;
-                response.error=""
+                response.error = ""
                 return res.status(200).send(response);
             } else {
                 response.success = false;
                 response.message = "Invalid Meals Id!";
-                response.data=mealId
-                response.error="Invalid Meals Id!"
+                response.data = mealId
+                response.error = "Invalid Meals Id!"
                 return res.status(500).send(response);
 
             }
@@ -81,19 +81,19 @@ class MealController {
     };
     getAllUserMeals = (req, res, next) => {
         try {
-            let mealId = req.params.token;
-            if (mealId) {
-            
+            let userId = req.params.token;
+            if (userId) {
+                mealService.getAllUserMeals(userId);
                 response.success = true;
                 response.message = "Getting All Meals Successfully.";
-                response.data = mealId;
-                response.error=""
+                response.data = userId;
+                response.error = ""
                 return res.status(200).send(response);
             } else {
                 response.success = false;
                 response.message = "Invalid Meals Id!";
                 response.data = mealId;
-                response.error="Invalid Meals Id!"
+                response.error = "Invalid Meals Id!"
                 return res.status(500).send(response);
 
             }
