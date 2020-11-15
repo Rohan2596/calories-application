@@ -17,7 +17,19 @@ const mealModel = mongoose.model('meals', mealSchema)
 class MealModel {
     addMeal = (req, next) => {
         try {
+            return new Promise((resolve, reject) => {
+                let meal = new mealModel(req);
 
+                meal.save().then(result => {
+                    let data = {
+                        "title": result.title,
+                        "caloriesCount": result.caloriesCount
+                    }
+                    resolve({ message: 'Meals Added successfully!', data: data });
+                }).catch(err => {
+                    reject({ message: 'Meals Failed!', error: err });
+                })
+            })
         } catch (error) {
             next(error)
         }

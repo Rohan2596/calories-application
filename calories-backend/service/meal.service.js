@@ -1,3 +1,5 @@
+const mealModel = require("../model/meal.model");
+
 class MealService {
 
     addMeal = (req, res, next) => {
@@ -7,6 +9,11 @@ class MealService {
                 'caloriesCount': req.caloriesCount
             }
             console.log("Inside Meal Service", meal);
+            return mealModel.addMeal(meal).then((data) => {
+                return data;
+            }).catch((err) => {
+                return err;
+            });
         } catch (error) {
             next(error)
         }

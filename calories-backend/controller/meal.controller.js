@@ -15,12 +15,20 @@ class MealController {
                 response.data = req.body
                 return res.status(500).send(response);
             } else {
-                mealService.addMeal(req.body);
-                response.success = true;
-                response.message = "Meals Added Successfully.";
-                response.data = req.body;
-                response.error = ""
-                return res.status(200).send(response);
+                mealService.addMeal(req.body).then((data) => {
+                    response.success = true;
+                    response.message = data.message;
+                    response.data = data.data;
+                    response.error = ""
+                    return res.status(200).send(response);
+                }).catch((error) => {
+                    response.success = false
+                    response.message = data.message;
+                    response.data = "";
+                    response.error = error
+                    return res.status(400).send(response);
+                }
+                );
             }
 
 
