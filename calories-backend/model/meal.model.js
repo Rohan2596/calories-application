@@ -37,6 +37,25 @@ class MealModel {
     };
     editMeal = (req, next) => {
         try {
+            return new Promise((resolve,reject)=>{
+                mealModel.findByIdAndUpdate({
+                    '_id':req.mealId
+                },{
+                    $set:{
+                        "title": req.title,
+                        "caloriesCount": req.caloriesCount
+                    
+                    }
+                }).then(result=>{
+                    if (result) {
+                        resolve({ message: 'Meals Updated Successful!',data:req });
+                    } else {
+                        reject({ message: 'Meals Updation Failed.',data:"" });
+                    }
+                }).catch(err => {
+                    reject(err)
+                })
+            })
 
         } catch (error) {
             next(error)

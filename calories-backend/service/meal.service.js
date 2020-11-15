@@ -21,10 +21,17 @@ class MealService {
     editMeal = (req, res, next) => {
         try {
             let meal = {
+                'mealId':req.mealId,
+                'token':req.token,
                 'title': req.title,
                 'caloriesCount': req.caloriesCount
             }
             console.log("InsideEdit Meal Service", meal);
+            return mealModel.editMeal(meal).then((data) => {
+                return data;
+            }).catch((err) => {
+                return err;
+            });
         } catch (error) {
             next(error)
         }
