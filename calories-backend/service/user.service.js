@@ -1,4 +1,5 @@
 const userModel = require('../model/user.model');
+const jwtTokenUtility = require('../utility/jwtToken.utility')
 class UserService {
 
     addUser = (req, next) => {
@@ -11,6 +12,7 @@ class UserService {
                 "password": req.password
             }
             return userModel.register(user).then((data) => {
+
                 return data;
             }).catch((err) => {
                 return err;
@@ -27,7 +29,11 @@ class UserService {
             }
             return userModel.login(auth).then((data) => {
                 console.log(data);
-                return data;
+                let playload = {
+                    id: data.data._id
+                }
+                return jwtTokenUtility.tokenGeneration(playload)
+
             }).catch((err) => {
                 return err;
             });

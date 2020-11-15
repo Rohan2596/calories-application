@@ -1,8 +1,10 @@
 const jwt =require('jsonwebtoken');
-
-const tokenGeneration=(payload,next)=>{
+class JWtToken{
+ tokenGeneration=(payload,next)=>{
     try {
         let token=jwt.sign(payload,"ROHAN",{expiresIn:'1d'})
+        console.log(token);
+
         return {
             success:true,
             message:'Token generation successfull.',
@@ -11,10 +13,11 @@ const tokenGeneration=(payload,next)=>{
         }
 
     } catch (error) {
+        console.log(error);
         next(error)
     }
-}
-const tokenVerification = (req, res, next) => {
+};
+ tokenVerification = (req, res, next) => {
     try {
         let token = req.header('token') || req.params.token;
 
@@ -31,5 +34,5 @@ const tokenVerification = (req, res, next) => {
         next(error)
     }
 }
-
-module.exports = { tokenGeneration, tokenVerification };
+}
+module.exports = new JWtToken();

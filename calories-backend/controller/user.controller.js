@@ -66,8 +66,8 @@ class UserController {
                 }
                 userService.authUser(login).then((login) => {
                     response.success = true;
-                    response.message = login.message;
-                    response.data = login.data;
+                    response.message = "Login Successfull!";
+                    response.data = login.token;
                     response.error = ""
                     return res.status(200).send(response);
                 }).catch((error) => {
