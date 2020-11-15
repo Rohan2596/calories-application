@@ -158,13 +158,20 @@ class UserController {
                 response.data = req.body
                 return res.status(500).send(response);
             } else {
-                userService.forgotPassword(req.body.email);
-                response.success = false;
-                response.message = "User Password forgot Successfully.";
-                response.data = req.body
-                response.error = ""
-                return res.status(200).send(response);
-
+                userService.forgotPassword(req.body).then((forgot) => {
+                    response.success = true;
+                    response.message = forgot.message;
+                    response.data = forgot.data;
+                    response.error = ""
+                    return res.status(200).send(response);
+                }).catch((error) => {
+                    response.success = false
+                    response.message = forgot.message;
+                    response.data = req.body;
+                    response.error = error
+                    return res.status(400).send(response);
+                }
+                );
             }
         } catch (error) {
             next(error)

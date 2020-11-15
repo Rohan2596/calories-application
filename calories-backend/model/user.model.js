@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const userSchema = new mongoose.Schema({
     'firstName': {
         type: String,
@@ -128,6 +127,27 @@ class UserModel {
                     }).catch(err => {
                         reject(err)
                     })
+            })
+        } catch (error) {
+            next(error)
+        }
+    };
+    forgotPassword=(req,next)=>{
+        try {
+            return new Promise((resolve, reject) => {
+                userModel.findOne({
+                    'email': req
+                }).then(result => {
+                    if (result) {
+                        resolve({
+                            message: 'Forgot Password Updated.', data: result
+                        })
+                    } else {
+                        reject({ message: 'User doesnot Exists in system.', data: req.email })
+                    }
+                }).catch(err => {
+                    reject(err)
+                })
             })
         } catch (error) {
             next(error)

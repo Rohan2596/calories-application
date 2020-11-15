@@ -60,9 +60,14 @@ class UserService {
     };
     forgotPassword = (req, next) => {
         try {
-            let email = req
+            let email = req.email
             console.log("Inside User Service", email);
-
+            return userModel.forgotPassword(email).then((data) => {
+                console.log(data);
+                return data;
+            }).catch((err) => {
+                return err;
+            });
         } catch (error) {
             next(error)
         }
