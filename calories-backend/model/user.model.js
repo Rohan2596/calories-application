@@ -67,7 +67,7 @@ class UserModel {
 
         }
     };
-    login=(req,next)=>{
+    login = (req, next) => {
         try {
             return new Promise((resolve, reject) => {
                 userModel.findOne({
@@ -77,9 +77,9 @@ class UserModel {
                         resolve({
                             message: 'Login Successfull!', data: result
                         })
-                       
+
                     } else {
-                        reject({ message: 'User doesnot Exists in system.',data:req.email })
+                        reject({ message: 'User doesnot Exists in system.', data: req.email })
 
                     }
                 }).catch(err => {
@@ -90,7 +90,7 @@ class UserModel {
             next(error);
         }
     };
-    getUserDetails=(req,next)=>{
+    getUserDetails = (req, next) => {
         try {
             return new Promise((resolve, reject) => {
                 userModel.findOne({
@@ -99,17 +99,39 @@ class UserModel {
                     if (result) {
                         resolve({
                             message: 'User Details', data: result
-                        })    
+                        })
                     } else {
-                        reject({ message: 'User doesnot Exists in system.',data:req.email })
+                        reject({ message: 'User doesnot Exists in system.', data: req.email })
                     }
                 }).catch(err => {
                     reject(err)
                 })
-            }) 
+            })
+        } catch (error) {
+            next(error)
+        }
+    };
+    getAllUserDetails = (req, next) => {
+        try {
+            return new Promise((resolve, reject) => {
+                userModel.find()
+                    .then(result => {
+                        if (result) {
+                            resolve({
+                                message: 'Get All Users:-', data: result
+                            })
+                        } else {
+                            reject({
+                                message: 'No data found!', data: ""
+                            })
+                        }
+                    }).catch(err => {
+                        reject(err)
+                    })
+            })
         } catch (error) {
             next(error)
         }
     }
 }
-module.exports=new UserModel();
+module.exports = new UserModel();

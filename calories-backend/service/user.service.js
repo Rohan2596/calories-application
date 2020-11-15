@@ -49,7 +49,11 @@ class UserService {
     };
     getAllUser = (next) => {
         try {
-            console.log("Inside User Service", "ALLL");
+            return userModel.getAllUserDetails().then((data) => {
+                return data;
+            }).catch((err) => {
+                return err;
+            });
         } catch (error) {
             next(error)
         }

@@ -121,10 +121,20 @@ class UserController {
     getAllUser = (req, res, next) => {
         try {
             const response = {};
-            userService.getAllUser();
-            response.success = true;
-            response.message = "Get All User Success.";
-            res.status(200).send(response);
+            userService.getAllUser().then((details) => {
+                response.success = true;
+                response.message = details.message;
+                response.data = details.data;
+                response.error = ""
+                return res.status(200).send(response);
+            }).catch((error) => {
+                response.success = false
+                response.message = details.message;
+                response.data = details.data;
+                response.error = data.error
+                return res.status(400).send(response);
+            }
+            );
         } catch (error) {
             response.success = false;
             response.message = "Get All User Failed.";
