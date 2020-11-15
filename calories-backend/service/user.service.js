@@ -1,5 +1,4 @@
 const userModel = require('../model/user.model');
-const jwtTokenUtility = require('../utility/jwtToken.utility')
 class UserService {
 
     addUser = (req, next) => {
@@ -29,10 +28,7 @@ class UserService {
             }
             return userModel.login(auth).then((data) => {
                 console.log(data);
-                let playload = {
-                    id: data.data._id
-                }
-                return jwtTokenUtility.tokenGeneration(playload)
+               return data;
 
             }).catch((err) => {
                 return err;
@@ -43,8 +39,8 @@ class UserService {
     };
     getUser = (req, next) => {
         try {
-            let token = req
-            return userModel.getUserDetails(token).then((data) => {
+
+            return userModel.getUserDetails(req).then((data) => {
                 return data;
             }).catch((err) => {
                 return err;

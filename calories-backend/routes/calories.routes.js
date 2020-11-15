@@ -1,6 +1,6 @@
 const route = require('express').Router();
 const userController=require('../controller/user.controller');
-const mealsController=require('../controller/meal.controller')
+const mealsController=require('../controller/meal.controller');
 
 /*
   @author  :- Rohan Ravindra Kadam 
@@ -10,7 +10,7 @@ const mealsController=require('../controller/meal.controller')
 */
 route.post('/user/add',userController.userRegister);
 route.post('/user/auth',userController.userLogin);
-route.get('/user/detail/:token',userController.userDetails);
+route.get('/user/detail/:userId',userController.userDetails);
 route.get('/user/all',userController.getAllUser);
 route.get('/user/password/forgot',userController.forgotPassword);
 route.post('/user/password/reset/:token',userController.resetPassword);

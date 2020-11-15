@@ -92,8 +92,9 @@ class UserModel {
     getUserDetails = (req, next) => {
         try {
             return new Promise((resolve, reject) => {
-                userModel.findOne({
-                    'email': req
+               console.log("Inside Model:- ",req);
+                userModel.findById({
+                    '_id': req
                 }).then(result => {
                     if (result) {
                         resolve({

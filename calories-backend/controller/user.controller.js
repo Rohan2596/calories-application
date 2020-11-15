@@ -67,7 +67,7 @@ class UserController {
                 userService.authUser(login).then((login) => {
                     response.success = true;
                     response.message = "Login Successfull!";
-                    response.data = login.token;
+                    response.data = login.data;
                     response.error = ""
                     return res.status(200).send(response);
                 }).catch((error) => {
@@ -90,10 +90,10 @@ class UserController {
     userDetails = (req, res, next) => {
         try {
             const response = {};
-            let token = req.params.token;
-            console.log(token);
-            if (token) {
-                userService.getUser(token).then((user) => {
+            let userId = req.params.userId;
+            
+            if (userId) {
+                userService.getUser(userId).then((user) => {
                     response.success = true;
                     response.message = user.message;
                     response.data = user.data;
@@ -103,14 +103,14 @@ class UserController {
                     response.success = false
                     response.message = user.message;
                     response.data = token;
-                    response.error = data.error
+                    response.error = error
                     return res.status(400).send(response);
                 }
                 );
             } else {
                 response.success = false;
                 response.message = "User Details Failed.";
-                response.data = token;
+                response.data = userId;
                 response.error = "invalid Token "
                 res.status(400).send(response);
             }
