@@ -132,7 +132,7 @@ class UserModel {
             next(error)
         }
     };
-    forgotPassword=(req,next)=>{
+    forgotPassword = (req, next) => {
         try {
             return new Promise((resolve, reject) => {
                 userModel.findOne({
@@ -149,6 +149,26 @@ class UserModel {
                     reject(err)
                 })
             })
+        } catch (error) {
+            next(error)
+        }
+    };
+    resetPassword = (req, next) => {
+        try {
+            return new Promise((resolve, reject) => {
+                userModel.findOneAndUpdate({ 'email': req.token },
+                    {
+                        $set: { 'password': req.password }
+                    }).then(result => {
+                        if (result) {
+                            resolve({ message: 'Reset Password Successful!',data:result });
+                        } else {
+                            reject({ message: 'Email Id is not registered!',data:"" });
+                        }
+                    }).catch(err => {
+                        reject(err)
+                    });
+            });
         } catch (error) {
             next(error)
         }

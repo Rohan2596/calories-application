@@ -180,6 +180,7 @@ class UserController {
     resetPassword = (req, res, next) => {
         try {
             const response = {};
+            let token = req.params.token;
 
             req.checkBody('password', 'Invalid Password!').notEmpty().equals(req.body.confirmPassword).isLength({ min: '8', max: '8' });
 
@@ -192,13 +193,24 @@ class UserController {
                 response.data = req.body
                 return res.status(500).send(response);
             } else {
-                userService.resetPassword(req.body.password)
-                response.success = true;
-                response.message = "User Password Reset Successfully.";
-                response.data = req.body;
-                response.error = ""
-                return res.status(200).send(response);
-
+                const reset = {
+                    token: token,
+                    password: req.body.password
+                };
+                userService.resetPassword(reset).then((reset) => {
+                    response.success = true;
+                    response.message = reset.message;
+                    response.data = reset.data;
+                    response.error = ""
+                    return res.status(200).send(response);
+                }).catch((error) => {
+                    response.success = false
+                    response.message = reset.message;
+                    response.data = reset.data;
+                    response.error = error
+                    return res.status(400).send(response);
+                }
+                );
             }
         } catch (error) {
             next(error)

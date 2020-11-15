@@ -74,8 +74,12 @@ class UserService {
     };
     resetPassword = (req, next) => {
         try {
-            let password = req
-            console.log("Inside User Service", password);
+            let reset = req
+            return userModel.resetPassword(reset).then((data) => {
+                return data;
+            }).catch((err) => {
+                return err;
+            })
 
         } catch (error) {
             next(error)
