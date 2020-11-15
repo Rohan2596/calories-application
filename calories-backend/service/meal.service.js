@@ -24,7 +24,7 @@ class MealService {
                 'title': req.title,
                 'caloriesCount': req.caloriesCount
             }
-            console.log("Inside Edit Meal Service", meal);
+            console.log("InsideEdit Meal Service", meal);
         } catch (error) {
             next(error)
         }
@@ -32,7 +32,11 @@ class MealService {
     deleteMeal = (req, res, next) => {
         try {
             let mealId = req
-            console.log("Inside Delete mealId", mealId);
+            return mealModel.deleteUserMeal(mealId).then((data) => {
+                return data;
+            }).catch((err) => {
+                return err;
+            });
         } catch (error) {
             next(error)
         }
@@ -40,7 +44,7 @@ class MealService {
     getAllUserMeals = (req, res, next) => {
         try {
             let userId = req
-            console.log("Inside User ID", userId);
+
             return mealModel.getUserMeal(userId).then((data) => {
                 return data;
             }).catch((err) => {

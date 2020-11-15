@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { resolve } = require('path');
 const userModel = require('./user.model');
 
 const mealSchema = new mongoose.Schema({
@@ -42,12 +43,32 @@ class MealModel {
 
         }
     };
+    deleteUserMeal = (req, next) => {
+        try {
+            return new Promise((resolve, reject) => {
+                mealModel.findByIdAndDelete({
+                    '_id': req
+                }).then(result => {
+                    if (result) {
+                        resolve({ message: 'Meal Delete Successfully!.', data: result });
+                    } else {
+                        reject({ message: 'Meal Not found', data: req });
+                    }
+                }).catch(err => {
+                    reject(err)
+                })
+            })
+        } catch (error) {
+            next(error)
+
+        }
+    };
     getUserMeal = (req, next) => {
         try {
             return new Promise((resolve, reject) => {
-               mealModel.find().then(result => {
-                    
-                    resolve({ message: 'Meals Added successfully!', data: result });
+                mealModel.find().then(result => {
+
+                    resolve({ message: 'User  Meals:-', data: result });
                 }).catch(err => {
                     reject({ message: 'Meals Failed!', error: err });
                 })

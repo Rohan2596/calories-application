@@ -71,12 +71,20 @@ class MealController {
             let mealId = req.params.id;
             if (mealId) {
 
-                mealService.deleteMeal(mealId);
-                response.success = true;
-                response.message = "Meals Delete Successfully.";
-                response.data = mealId;
-                response.error = ""
-                return res.status(200).send(response);
+                mealService.deleteMeal(mealId).then((data) => {
+                    response.success = true;
+                    response.message = data.message;
+                    response.data = data.data;
+                    response.error = ""
+                    return res.status(200).send(response);
+                }).catch((error) => {
+                    response.success = false
+                    response.message = data.message;
+                    response.data = "";
+                    response.error = error
+                    return res.status(400).send(response);
+                }
+                );
             } else {
                 response.success = false;
                 response.message = "Invalid Meals Id!";
