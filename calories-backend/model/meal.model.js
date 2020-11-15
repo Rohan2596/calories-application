@@ -44,6 +44,14 @@ class MealModel {
     };
     getUserMeal = (req, next) => {
         try {
+            return new Promise((resolve, reject) => {
+               mealModel.find().then(result => {
+                    
+                    resolve({ message: 'Meals Added successfully!', data: result });
+                }).catch(err => {
+                    reject({ message: 'Meals Failed!', error: err });
+                })
+            })
 
         } catch (error) {
             next(error)

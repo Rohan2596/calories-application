@@ -41,8 +41,13 @@ class MealService {
         try {
             let userId = req
             console.log("Inside User ID", userId);
+            return mealModel.getUserMeal(userId).then((data) => {
+                return data;
+            }).catch((err) => {
+                return err;
+            });
         } catch (error) {
-
+            next(error)
         }
     }
 
