@@ -4,6 +4,9 @@ import '/home/admin1/Desktop/BackEndProjects/calories-application/calories-front
 export class Login extends React.Component {
     constructor(props) {
         super(props);
+        this.state={
+            isLogin:true
+        }
     }
     render() {
         return (
@@ -28,7 +31,7 @@ export class Login extends React.Component {
                     <button type="button" className="btn">
                         Login
           </button>
-                    <button type="button" className="btn">
+                    <button type="button" className="btn" onClick={() => this.setState({isLogin:false})} >
                         Register
           </button>
                 </div>

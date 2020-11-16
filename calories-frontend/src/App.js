@@ -8,20 +8,29 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLogginActive: true,
+      isLogginActive: this.props.isLogin,
     }
   }
 changeState(){
 
 }
-  render() {
-  
-
+  render() { 
+  console.log("App JS",this.props.isLogin);
+    let {isLoggedIn} = this.state.isLogginActive;
+    const components = ()=>{
+      if(isLoggedIn){
+        return <Login />
+      } else{
+        return <Register/>
+      }
+    }
     return (
       <div className="App">
         <div className="login">
           <div className="container" >
-            <Calories  />
+        
+          {components()}
+
           </div>
          
         </div>
