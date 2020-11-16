@@ -2,6 +2,7 @@ import React from "react";
 import './App.css';
 import { Login } from './components/login/login';
 import { Register } from "./components/register/register";
+import { Calories } from "./components/calories/calories";
 
 class App extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ changeState(){
       <div className="App">
         <div className="login">
           <div className="container" >
-            <Register  />
+            <Calories  />
           </div>
          
         </div>
