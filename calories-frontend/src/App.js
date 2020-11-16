@@ -1,6 +1,7 @@
 import React from "react";
 import './App.css';
 import { Login } from './components/login/login';
+import { Register } from "./components/register/register";
 
 class App extends React.Component {
   constructor(props) {
@@ -11,14 +12,6 @@ class App extends React.Component {
   }
 changeState(){
   const {isLogginActive} =this.state;
-  if (isLogginActive) {
-    this.rightSide.classList.remove("right");
-    this.rightSide.classList.add("left");
-  } else {
-    this.rightSide.classList.remove("left");
-    this.rightSide.classList.add("right");
-  }
-  this.setState(prevState => ({ isLogginActive: !prevState.isLogginActive }));
 
 }
   render() {
@@ -29,8 +22,8 @@ changeState(){
     return (
       <div className="App">
         <div className="login">
-          <div className="container">
-            {isLogginActive && <Login containerRef={(ref) => this.current = ref} />}
+          <div className="container" >
+            {isLogginActive && <Register containerRef={(ref) => this.current = ref} />}
           </div>
          
         </div>
@@ -39,17 +32,5 @@ changeState(){
   }
 }
 
-const RightSide = props => {
-  return (
-    <div
-      className="right-side"
-      ref={props.containerRef}
-      onClick={props.onClick}
-    >
-      <div className="inner-container">
-        <div className="text">{props.current}</div>
-      </div>
-    </div>
-  );
-};
+
 export default App;
