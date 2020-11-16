@@ -180,7 +180,7 @@ class UserController {
     resetPassword = (req, res, next) => {
         try {
             const response = {};
-            let token = req.params.token;
+            let userId = req.params.userId;
 
             req.checkBody('password', 'Invalid Password!').notEmpty().equals(req.body.confirmPassword).isLength({ min: '8', max: '8' });
 
@@ -194,7 +194,7 @@ class UserController {
                 return res.status(500).send(response);
             } else {
                 const reset = {
-                    token: token,
+                    userId: userId,
                     password: req.body.password
                 };
                 userService.resetPassword(reset).then((reset) => {

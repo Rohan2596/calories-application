@@ -157,12 +157,12 @@ class UserModel {
     resetPassword = (req, next) => {
         try {
             return new Promise((resolve, reject) => {
-                userModel.findOneAndUpdate({ 'email': req.token },
+                userModel.findOneAndUpdate({ '_id': req.userId },
                     {
                         $set: { 'password': req.password }
                     }).then(result => {
                         if (result) {
-                            resolve({ message: 'Reset Password Successful!',data:result });
+                            resolve({ message: 'Reset Password Successful!',data:result.email });
                         } else {
                             reject({ message: 'Email Id is not registered!',data:"" });
                         }
