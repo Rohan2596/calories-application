@@ -1,4 +1,5 @@
 const mealService = require('../service/meal.service')
+const userService=require('../service/user.service')
 class MealController {
 
     addMeal = (req, res, next) => {
@@ -15,15 +16,26 @@ class MealController {
                 response.data = req.body
                 return res.status(500).send(response);
             } else {
-                mealService.addMeal(req.body).then((data) => {
+                let meal = {
+                    'userId': req.params.userId,
+                    'title': req.body.title,
+                    'caloriesCount': req.body.caloriesCount
+                }
+
+                mealService.addMeal(meal).then((data) => {
                     response.success = true;
                     response.message = data.message;
                     response.data = data.data;
-                    response.error = ""
+                    response.error = "";
+                    userService.addMealtoUser(data.data).then((meal)=>{
+                         console.log("Meals:-  ",meal);
+                    }).catch((err)=>{
+                        console.log(err);
+                    }) 
                     return res.status(200).send(response);
                 }).catch((error) => {
                     response.success = false
-                    response.message = data.message;
+                    response.message = "";
                     response.data = "";
                     response.error = error
                     return res.status(400).send(response);
@@ -54,7 +66,7 @@ class MealController {
                 if (mealId) {
                     let meal = {
                         'mealId': req.params.id,
-                        'token': req.params.token,
+                        'userId': req.params.userId,
                         'title': req.body.title,
                         'caloriesCount': req.body.caloriesCount
                     }
@@ -95,8 +107,12 @@ class MealController {
 
             let mealId = req.params.id;
             if (mealId) {
+                let meal = {
+                    'mealId': req.params.id,
+                    'userId': req.params.userId,
+                }
 
-                mealService.deleteMeal(mealId).then((data) => {
+                mealService.deleteMeal(meal).then((data) => {
                     response.success = true;
                     response.message = data.message;
                     response.data = data.data;
@@ -127,7 +143,7 @@ class MealController {
     getAllUserMeals = (req, res, next) => {
         try {
             let response = {}
-            let userId = req.params.token;
+            let userId = req.params.userId;
             if (userId) {
                 mealService.getAllUserMeals(userId).then((data) => {
                     response.success = true;
@@ -146,7 +162,7 @@ class MealController {
             } else {
                 response.success = false;
                 response.message = "Invalid Meals Id!";
-                response.data = mealId;
+                response.data = userId;
                 response.error = "Invalid Meals Id!"
                 return res.status(500).send(response);
 

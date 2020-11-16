@@ -8,7 +8,8 @@ class UserService {
                 "lastName": req.lastName,
                 "email": req.email,
                 "mobile": req.mobile,
-                "password": req.password
+                "password": req.password,
+                "meals": []
             }
             return userModel.register(user).then((data) => {
 
@@ -28,7 +29,7 @@ class UserService {
             }
             return userModel.login(auth).then((data) => {
                 console.log(data);
-               return data;
+                return data;
 
             }).catch((err) => {
                 return err;
@@ -86,6 +87,18 @@ class UserService {
         } catch (error) {
             next(error)
         }
+    };
+    addMealtoUser = (req, next) => {
+        try {
+            return userModel.addMealtoUser(req).then(user => {
+               return user;
+            }).catch(err => {
+             console.log(err);
+            })
+        } catch (error) {
+            next(error)
+        }
     }
+
 }
 module.exports = new UserService();

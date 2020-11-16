@@ -91,7 +91,7 @@ class UserController {
         try {
             const response = {};
             let userId = req.params.userId;
-            
+
             if (userId) {
                 userService.getUser(userId).then((user) => {
                     response.success = true;
@@ -215,6 +215,7 @@ class UserController {
         } catch (error) {
             next(error)
         }
-    }
+    };
+
 }
 module.exports = new UserController();

@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const { resolve } = require('path');
-const userModel = require('./user.model');
 
 const mealSchema = new mongoose.Schema({
     'title': {
@@ -9,6 +7,11 @@ const mealSchema = new mongoose.Schema({
     },
     'caloriesCount': {
         type: Number,
+        required: true
+    },
+    'user': {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
         required: true
     }
 }, {
@@ -19,14 +22,16 @@ class MealModel {
     addMeal = (req, next) => {
         try {
             return new Promise((resolve, reject) => {
-                let meal = new mealModel(req);
+                let mealDetails = {
+                    "user": req.userId,
+                    "title": req.title,
+                    "caloriesCount": req.caloriesCount,
+                }
+                let meal = new mealModel(mealDetails);
 
                 meal.save().then(result => {
-                    let data = {
-                        "title": result.title,
-                        "caloriesCount": result.caloriesCount
-                    }
-                    resolve({ message: 'Meals Added successfully!', data: data });
+                   
+                    resolve({ message: 'Meals Added successfully!', data: result });
                 }).catch(err => {
                     reject({ message: 'Meals Failed!', error: err });
                 })
@@ -37,20 +42,20 @@ class MealModel {
     };
     editMeal = (req, next) => {
         try {
-            return new Promise((resolve,reject)=>{
+            return new Promise((resolve, reject) => {
                 mealModel.findByIdAndUpdate({
-                    '_id':req.mealId
-                },{
-                    $set:{
+                    '_id': req.mealId
+                }, {
+                    $set: {
                         "title": req.title,
                         "caloriesCount": req.caloriesCount
-                    
+
                     }
-                }).then(result=>{
+                }).then(result => {
                     if (result) {
-                        resolve({ message: 'Meals Updated Successful!',data:req });
+                        resolve({ message: 'Meals Updated Successful!', data: req });
                     } else {
-                        reject({ message: 'Meals Updation Failed.',data:"" });
+                        reject({ message: 'Meals Updation Failed.', data: "" });
                     }
                 }).catch(err => {
                     reject(err)
@@ -66,7 +71,7 @@ class MealModel {
         try {
             return new Promise((resolve, reject) => {
                 mealModel.findByIdAndDelete({
-                    '_id': req
+                    '_id': req.mealId
                 }).then(result => {
                     if (result) {
                         resolve({ message: 'Meal Delete Successfully!.', data: result });
@@ -85,11 +90,11 @@ class MealModel {
     getUserMeal = (req, next) => {
         try {
             return new Promise((resolve, reject) => {
-                mealModel.find().then(result => {
+                mealModel.find({ 'user': req.userId }).populate('user').then(data => {
+                    resolve({ message: "Found Teams!", data: data });
 
-                    resolve({ message: 'User  Meals:-', data: result });
                 }).catch(err => {
-                    reject({ message: 'Meals Failed!', error: err });
+                    reject({ message: "User Id not exists!", error: err });
                 })
             })
 

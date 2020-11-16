@@ -1,3 +1,4 @@
+const { ObjectId } = require('bson');
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
@@ -20,7 +21,12 @@ const userSchema = new mongoose.Schema({
     'password': {
         type: String,
         required: true
-    }
+    },
+    'meals': [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'meals',
+        required: true
+    }]
 }, {
     timestamps: true
 })
@@ -51,6 +57,7 @@ class UserModel {
                                 })
                             }
                         ).catch(err => {
+                            console.log(err);
                             reject({
                                 message: 'Registration Failed!', error: err
                             })
@@ -92,7 +99,7 @@ class UserModel {
     getUserDetails = (req, next) => {
         try {
             return new Promise((resolve, reject) => {
-               console.log("Inside Model:- ",req);
+                console.log("Inside Model:- ", req);
                 userModel.findById({
                     '_id': req
                 }).then(result => {
@@ -162,14 +169,44 @@ class UserModel {
                         $set: { 'password': req.password }
                     }).then(result => {
                         if (result) {
-                            resolve({ message: 'Reset Password Successful!',data:result.email });
+                            resolve({ message: 'Reset Password Successful!', data: result.email });
                         } else {
-                            reject({ message: 'Email Id is not registered!',data:"" });
+                            reject({ message: 'Email Id is not registered!', data: "" });
                         }
                     }).catch(err => {
                         reject(err)
                     });
             });
+        } catch (error) {
+            next(error)
+        }
+    };
+    getUserMeal = (req, next) => {
+        try {
+            return new Promise((resolve, reject) => {
+                userModel.findOne({ '_id': req }).populate('meals').then(data => {
+                    resolve({ message: "Found Teams!", data: data });
+
+                }).catch(err => {
+                    reject({ message: "User Id not exists!", error: err });
+                })
+            })
+
+        } catch (error) {
+            next(error)
+
+        }
+    };
+    addMealtoUser = (req, next) => {
+        try {
+
+            return userModel.findOneAndUpdate({ '_id': req.user },
+                {
+                    $push: { 'meals': req._id }
+                }, { new: true })
+                .then(user => {
+                 return user;
+                })
         } catch (error) {
             next(error)
         }

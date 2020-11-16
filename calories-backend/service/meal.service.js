@@ -1,16 +1,15 @@
 const mealModel = require("../model/meal.model");
+const userModel = require("../model/user.model");
+const userService = require("./user.service");
 
 class MealService {
 
     addMeal = (req, res, next) => {
         try {
-            let meal = {
-                'title': req.title,
-                'caloriesCount': req.caloriesCount
-            }
-            console.log("Inside Meal Service", meal);
-            return mealModel.addMeal(meal).then((data) => {
+          
+            return mealModel.addMeal(req).then((data) => {
                 return data;
+               
             }).catch((err) => {
                 return err;
             });
@@ -21,12 +20,11 @@ class MealService {
     editMeal = (req, res, next) => {
         try {
             let meal = {
-                'mealId':req.mealId,
-                'token':req.token,
+                'mealId': req.mealId,
+                'userId': req.userId,
                 'title': req.title,
                 'caloriesCount': req.caloriesCount
             }
-            console.log("InsideEdit Meal Service", meal);
             return mealModel.editMeal(meal).then((data) => {
                 return data;
             }).catch((err) => {
@@ -38,8 +36,7 @@ class MealService {
     };
     deleteMeal = (req, res, next) => {
         try {
-            let mealId = req
-            return mealModel.deleteUserMeal(mealId).then((data) => {
+            return mealModel.deleteUserMeal(req).then((data) => {
                 return data;
             }).catch((err) => {
                 return err;
@@ -51,8 +48,8 @@ class MealService {
     getAllUserMeals = (req, res, next) => {
         try {
             let userId = req
-
-            return mealModel.getUserMeal(userId).then((data) => {
+            console.log(req);
+            return userModel.getUserMeal(userId).then((data) => {
                 return data;
             }).catch((err) => {
                 return err;

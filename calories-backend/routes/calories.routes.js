@@ -15,14 +15,15 @@ route.get('/user/all',userController.getAllUser);
 route.get('/user/password/forgot',userController.forgotPassword);
 route.post('/user/password/reset/:userId',userController.resetPassword);
 
+
 /*
   @author   :- Rohan Ravindra Kadam
   @Purpose  :- Meals routes for add, updating and getting. 
 */
-route.post('/meal/add/:token',mealsController.addMeal);
-route.put('/meal/edit/:token/:id',mealsController.editMeal);
-route.delete('/meal/remove/:token/:id',mealsController.deleteMeal);
-route.get('/meal/all/:token',mealsController.getAllUserMeals);
+route.post('/meal/add/:userId',mealsController.addMeal);
+route.put('/meal/edit/:userId/:id',mealsController.editMeal);
+route.delete('/meal/remove/:userId/:id',mealsController.deleteMeal);
+route.get('/meal/all/:userId',mealsController.getAllUserMeals);
 
 
 module.exports=route;
