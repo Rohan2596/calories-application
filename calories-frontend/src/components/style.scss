@@ -77,10 +77,191 @@
   
 
   }
+  .container{
+    width: 29em;
+  }
     .footer {
       margin-top: 3em;
     }
 
- 
+    .userDisplayMain {
+      display        : flex;
+      flex-direction : row;
+      height         : 60px;
+      justify-content: space-between;
+      align-items    : center;
+      margin-right   : 40px;
+      width          : 99%;
+      border         : 1px solid #EFEFEF;
+      border-radius  : 5px;
+      opacity        : 1;
+      background     : #FFFFFF 0% 0% no-repeat padding-box;
+      margin         : 5px;
+      cursor         : pointer;
+      letter-spacing: 0.5px;
+  
+      &:hover {
+         
+          border               : 1px solid #3498db;
+          // box-shadow        :  13px 7px -10px -10px #18A2E7;
+          // box-shadow        : 2px 2px 0px $primary-color;
+          background-color     : #F8FBFF;
+          // opacity           : 3;
+          box-shadow           : inset 0 -15px 3px -16px #3D3D3D;
+  
+          // background     : #18A2E7 0% 0% no-repeat padding-box;
+          .nameText {
+              font-weight: 600;
+  
+          }
+  
+          
+      }
+  }
+  
+  
+  .leftDiv {
+      display        : flex;
+      flex-direction : row;
+      justify-content: flex-start;
+      width          : 55%;
+      align-items    : center;
+      margin-left: 8px;
+  }
+  
+  .rightDiv {
+      @extend .leftDiv;
+      justify-content: space-around;
+      width          : 45%;
+  }
+  .reset{
+      width: 120px;
+  }
+  .nameText {
+      font-size    : 15px;
+      text-align   : left;
+      color        : #3D3D3D;
+      white-space  : nowrap;
+      overflow     : hidden;
+      text-overflow: ellipsis;
+      // padding-left: 5px;
+      // padding-right: 10px;
+      & .hover{
+          transform: translateX(calc(200px - 100%));
+      }
+  }
+  
+  .emailText {
+      @extend .nameText;
+  
+  }
+  
+  .nameAndEmail {
+      display        : flex;
+      flex-direction : row;
+      width          : 84%;
+      margin-left    : 12px;
+      justify-content: space-evenly;
+      align-items    : center;
+      width          : 90%;
+  }
+  
+  .usernameDiv {
+      width: 50%;
+  }
+  
+  .emailDiv {
+      @extend.usernameDiv;
+  }
+  
+  .resetDiv {
+      display       : none;
+      align-self    : flex-end;
+      // display    : flex;
+      flex-direction: row;
+      align-items   : center;
+      margin-left: -28px;
+  }
+  
+  
+    
+  
+  .lockIcon {
+  
+      height: 12.5px;
+      width : 12px;
+  }
+  
+  .resetText {
+  
+      font-size: 15px;
+  }
+  
+  .userTableMain {
+      display        : flex;
+      flex-direction : row;
+      height         : 40px;
+      justify-content: space-between;
+      align-items    : center;
+      margin-right   : 40px;
+      width          : 100%;
+  
+      opacity   : 1;
+      background: #FFFFFF 0% 0% no-repeat padding-box;
+      margin    : 5px;
+  }
+  
+  .leftProfile {
+      width              : 36px;
+      height             : 36px;
+      // border          : 1px solid #F5F5F5;
+      opacity            : 1;
+      border-radius      : 18px;
+      // background-color: #EFEFEF;
+      margin-left        : 12px;
+      display            : flex;
+      align-items        : center;
+      justify-content    : center;
+  }
+  
+  .tableHeaderText {
+      // font-family: $font-family;
+      text-align    : left;
+      color         : #031016;
+      font-size     : 14px;
+      font          : Bold 14px/16px ;
+      text-transform: uppercase;
+      opacity       : 0.6;
+  }
+  .tableHeaderTextName {
+      @extend .tableHeaderText;
+      margin-left: 1px;
+  }
+  .tableHeaderTextEmail {
+      @extend .tableHeaderText;
+      margin-left: -2px;
+  }
+  .tableHeaderTextLab {
+      @extend .tableHeaderText;
+      margin-left: -4px;
+  }
+  .tableHeaderTextStatus {
+      @extend .tableHeaderText;
+      margin-left: 10px;
+  }
+  .tableHeaderTextAction {
+      @extend .tableHeaderText;
+      margin-right: 4px;
+  }
+  .labNameDiv{
+      width:80px
+  }
+  .labHeaderDiv{
+      width:40px
+  }
+   .login{
+     width: 30em;
+   }
+  
 
   }

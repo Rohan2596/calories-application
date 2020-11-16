@@ -27,48 +27,31 @@ export class Calories extends React.Component {
                     </div>
                 </div>
 
-            </div>
-
-            /* <div class="table-box">
-
-                    <div class="table-row table-head">
-
-                        <div class="table-cell head-cell">
-                            <p> SrNo</p>
-                        </div>
-                        <div class="table-cell">
-                            <p>First Name</p>
-                        </div>
-                        <div class="table-cell">
-                            <p> Last Name</p>
-                        </div>
-                        <div class="table-cell">
-                            <p> Edit</p>
-                        </div>
-                        <div class="table-cell">
-                            <p> Delete</p>
-                        </div>
+                <div className="userTableMain" >
+            <div className="leftDiv" >
+                <div className="leftProfile"></div>
+                <div className="nameAndEmail">
+                    <div className="usernameDiv">
+                        <div className="tableHeaderTextName">Meals Title </div>
                     </div>
-                    <div class="table-row">
-
-                        <div class="table-cell head-cell">
-                            <p> SrNo</p>
-                        </div>
-                        <div class="table-cell">
-                            <p>First Name</p>
-                        </div>
-                        <div class="table-cell">
-                            <p> Last Name</p>
-                        </div>
-                        <div class="table-cell">
-                            <button class="edit" type="button" onclick="getEditValue();">Edit</button>
-                        </div>
-                        <div class="table-cell last-cell">
-                            <button class="delete" type="button" onclick="getDeleteValue();">Delete</button>
-                        </div>
+                    <div className="emailDiv">
+                        <div className="tableHeaderTextEmail">Count</div>
                     </div>
                 </div>
-    </div> */
+            </div>
+            <div className="rightDiv">
+                <div className="labHeaderDiv">
+                    <div  className="tableHeaderTextLab">Edit</div>
+                </div>
+                <div className='tableHeaderTextStatus' >
+                    Delete
+                </div>
+            </div>
+            
+        </div>
+                </div>
+
+
         );
     }
 }
