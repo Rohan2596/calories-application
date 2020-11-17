@@ -15,12 +15,25 @@ class App extends React.Component {
 
   }
   myCallback = (data) => {
-   console.log("dfdsfs",data);
-}
+    console.log("dfdsfs", data);
+    if (data === "login") {
+      this.setState({ isActivePage: true })
+    }
+    if (data === "register") {
+      this.setState({ isActivePage: false })
+    }
+
+
+  }
   render() {
 
     const components = () => {
+      if (this.state.isActivePage) {
         return <Login callbackFromParent={this.myCallback} />
+      }
+      if (!this.state.isActivePage) {
+        return <Register callbackFromParent={this.myCallback} />
+      }
     }
     return (
       <div className="App">
