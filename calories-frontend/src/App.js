@@ -8,31 +8,26 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLogginActive: this.props.isLogin,
+      isActivePage: true,
     }
   }
-changeState(){
+  changeState() {
 
-}
-  render() { 
-  console.log("App JS",this.props.isLogin);
-    let {isLoggedIn} = this.state.isLogginActive;
-    const components = ()=>{
-      if(isLoggedIn){
-        return <Login />
-      } else{
-        return <Register/>
-      }
+  }
+  render() {
+
+    const components = () => {
+        return <Login change="login" />
     }
     return (
       <div className="App">
         <div className="login">
           <div className="container" >
-        
-          {components()}
+
+            {components()}
 
           </div>
-         
+
         </div>
       </div>
     );

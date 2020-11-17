@@ -4,13 +4,23 @@ import '/home/admin1/Desktop/BackEndProjects/calories-application/calories-front
 export class Login extends React.Component {
     constructor(props) {
         super(props);
-        this.state={
-            isLogin:true
+        this.state = {
+            login:this.props.change
         }
+        console.log(this.state.login);
+
+    }
+
+    onLogin() {
+        console.log("Inside login");
+        
+    }
+    onRegister() {
+        console.log("inside register");
     }
     render() {
         return (
-            <div className="base-container" >
+            <div className="base-container"  >
                 <div className="header">Login</div>
                 <div className="content">
                     <div className="image">
@@ -28,10 +38,10 @@ export class Login extends React.Component {
                     </div>
                 </div>
                 <div className="footer">
-                    <button type="button" className="btn">
+                    <button type="button" className="btn" onClick={this.onLogin}>
                         Login
           </button>
-                    <button type="button" className="btn" onClick={() => this.setState({isLogin:false})} >
+                    <button type="button" className="btn" onClick={this.onRegister}>
                         Register
           </button>
                 </div>

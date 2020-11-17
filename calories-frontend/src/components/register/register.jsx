@@ -1,18 +1,24 @@
 import React from "react";
-import loginImg from "/home/admin1/Desktop/BackEndProjects/calories-application/calories-frontend/src/components/login.svg";
 import '/home/admin1/Desktop/BackEndProjects/calories-application/calories-frontend/src/components/style.scss'
 export class Register extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    onLogin() {
+        console.log("Inside login");
+    }
+    onRegister() {
+        console.log("inside register");
     }
     render() {
         return (
             <div className="base-container" >
                 <div className="header">Register</div>
                 <div className="content">
-                
+
                     <div className="form">
-                    <div className="form-group">
+                        <div className="form-group">
                             <label htmlFor="firstname">First Name</label>
                             <input type="text" name="firstname" placeholder="First Name" />
                         </div>
@@ -35,10 +41,10 @@ export class Register extends React.Component {
                     </div>
                 </div>
                 <div className="footer">
-                    <button type="button" className="btn">
+                    <button type="button" className="btn"  onClick={this.onLogin}>
                         Login
           </button>
-                    <button type="button" className="btn">
+                    <button type="button" className="btn"  onClick={this.onRegister}>
                         Register
           </button>
                 </div>
