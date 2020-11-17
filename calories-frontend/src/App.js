@@ -14,10 +14,13 @@ class App extends React.Component {
   changeState() {
 
   }
+  myCallback = (data) => {
+   console.log("dfdsfs",data);
+}
   render() {
 
     const components = () => {
-        return <Login change="login" />
+        return <Login callbackFromParent={this.myCallback} />
     }
     return (
       <div className="App">

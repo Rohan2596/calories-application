@@ -13,6 +13,7 @@ export class Login extends React.Component {
 
     onLogin() {
         console.log("Inside login");
+       this.props.callbackFromParent("dfs");
         
     }
     onRegister() {
@@ -38,7 +39,7 @@ export class Login extends React.Component {
                     </div>
                 </div>
                 <div className="footer">
-                    <button type="button" className="btn" onClick={this.onLogin}>
+                    <button type="button" className="btn" onClick={this.onLogin.bind(this)}>
                         Login
           </button>
                     <button type="button" className="btn" onClick={this.onRegister}>
