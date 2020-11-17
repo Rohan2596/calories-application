@@ -5,19 +5,31 @@ export class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            login:this.props.change
+            email:'',
+            password:''
         }
-        console.log(this.state.login);
+
+    }
+
+    onChangeEmail(event) {
+        var email = event.target.value
+        this.setState({ email: event.target.value })
+
+    }
+    onChangePassword(event){
+        this.setState({ password: event.target.value })
 
     }
 
     onLogin() {
        this.props.callbackFromParent("login");
+       console.log("email:-",this.state.email);
+       console.log("password:-", this.state.password);
         
     }
     onRegister() {
         this.props.callbackFromParent("register");
-
+      
     }
     render() {
         return (
@@ -30,11 +42,11 @@ export class Login extends React.Component {
                     <div className="form">
                         <div className="form-group">
                             <label htmlFor="emailAddress">Email Address</label>
-                            <input type="text" name="email" placeholder="Email Address" />
+                            <input type="text" name="email" placeholder="Email Address" value={this.state.email} onChange={(event) => this.onChangeEmail(event)} />
                         </div>
                         <div className="form-group">
                             <label htmlFor="password">Password</label>
-                            <input type="password" name="password" placeholder="Password" />
+                            <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={(event) => this.onChangePassword(event)} />
                         </div>
                     </div>
                 </div>
