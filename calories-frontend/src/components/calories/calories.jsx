@@ -23,6 +23,9 @@ export class Calories extends React.Component {
 
     }
     componentDidMount() {
+        this.getAllUserMeal();
+    }
+    getAllUserMeal(){
         MealService.getAllUserMeal().then((data) => {
             console.log(data);
             this.setState({ meals: data.data.data.meals })
@@ -40,6 +43,7 @@ export class Calories extends React.Component {
         }
         MealService.addMeal(mealDto).then((data) => {
             console.log(data);
+            this.getAllUserMeal();
 
         }).catch((err) => {
             console.log(err);
@@ -48,8 +52,14 @@ export class Calories extends React.Component {
     editMeal(mealId) {
         console.log(mealId);
     }
-    deleteMeal(mealId){
+    deleteMeal(mealId) {
         console.log(mealId);
+        MealService.deleteUserMeal(mealId).then((data) => {
+            console.log(data);
+            this.getAllUserMeal();
+        }).catch((err) => {
+            console.log(err);
+        })
     }
     render() {
 
@@ -72,7 +82,7 @@ export class Calories extends React.Component {
                         <div className="labHeaderDiv">
                             <div className="tableHeaderTextEdit" onClick={() => this.editMeal(item._id)}>Edit</div>
                         </div>
-                        <div className='tableHeaderTextDelete'onClick={() => this.deleteMeal(item._id)} >
+                        <div className='tableHeaderTextDelete' onClick={() => this.deleteMeal(item._id)} >
                             Delete
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 const axios = require('axios');
-const {apiUrl,addMeal,getUserMeal}=require('../constant');
+const {apiUrl,addMeal,getUserMeal,deleteMeal}=require('../constant');
 
 class MealService {
 
@@ -14,7 +14,13 @@ class MealService {
         return axios({
             method:"GET",
             url:`${apiUrl}${getUserMeal}`+localStorage.getItem('userId'),
-            
+
+        })
+    };
+    deleteUserMeal=(mealId)=>{
+        return axios({
+            method:"DELETE",
+            url:`${apiUrl}${deleteMeal}`+localStorage.getItem('userId')+'/'+mealId
         })
     }
     

@@ -8,6 +8,6 @@ module.exports = {
     //meals
     addMeal:"/meal/add",
     editMeal:"/meal/edit/:userId/:id",
-    deleteMeal:"/meal/remove/:userId/:id",
+    deleteMeal:"/meal/remove/",
     getUserMeal:"/meal/all/"
 }
