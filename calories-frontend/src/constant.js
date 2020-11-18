@@ -1,7 +1,7 @@
 module.exports = {
-    apiUrl: "http://localhost:3000/calories",
-    addUser:"",
-    authUser:"",
+    apiUrl: "http://localhost:3001/calories",
+    addUser:"/user/add",
+    authUser:"/user/auth",
     getUser:"",
     forgotPassword:"",
     resetPassword:"",
