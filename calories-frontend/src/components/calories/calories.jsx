@@ -29,7 +29,6 @@ export class Calories extends React.Component {
 
                 <div className="userTableMain" >
             <div className="leftDiv" >
-                <div className="leftProfile"></div>
                 <div className="nameAndEmail">
                     <div className="usernameDiv">
                         <div className="tableHeaderTextName">Meals Title </div>
