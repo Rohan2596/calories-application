@@ -6,7 +6,8 @@ export class Calories extends React.Component {
         super(props);
         this.state = {
             mealtitle: '',
-            calCount: ''
+            calCount: '',
+            meals: []
         }
     }
 
@@ -21,20 +22,66 @@ export class Calories extends React.Component {
         })
 
     }
+    componentDidMount() {
+        MealService.getAllUserMeal().then((data) => {
+            console.log(data);
+            this.setState({ meals: data.data.data.meals })
+            console.log(this.state.meals);
+
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
     addMeal() {
         console.log(this.state.calCount, this.state.mealtitle);
         let mealDto = {
             "title": this.state.mealtitle,
             "caloriesCount": this.state.calCount
         }
-         MealService.addMeal(mealDto).then((data) => {
+        MealService.addMeal(mealDto).then((data) => {
             console.log(data);
+
         }).catch((err) => {
             console.log(err);
         })
     }
-
+    editMeal(mealId) {
+        console.log(mealId);
+    }
+    deleteMeal(mealId){
+        console.log(mealId);
+    }
     render() {
+
+        var displayMeals = this.state.meals.map((item, i) => {
+            return (
+
+
+                <div className="calTableMain" key={i} >
+                    <div className="leftDiv" >
+                        <div className="mealandcount">
+                            <div className="mealTitleDiv">
+                                <div className="tableHeaderTitleName">{item.title}</div>
+                            </div>
+                            <div className="countDiv">
+                                <div className="tableHeaderTextCount">{item.caloriesCount}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="rightDiv">
+                        <div className="labHeaderDiv">
+                            <div className="tableHeaderTextEdit" onClick={() => this.editMeal(item._id)}>Edit</div>
+                        </div>
+                        <div className='tableHeaderTextDelete'onClick={() => this.deleteMeal(item._id)} >
+                            Delete
+                        </div>
+                    </div>
+
+                </div>
+
+            );
+        })
+
         return (
             <div className="base-container" >
                 <div className="header">Calories</div>
@@ -57,6 +104,7 @@ export class Calories extends React.Component {
                 </div>
 
                 <div className="calTableMain" >
+
                     <div className="leftDiv" >
                         <div className="mealandcount">
                             <div className="mealTitleDiv">
@@ -77,6 +125,7 @@ export class Calories extends React.Component {
                     </div>
 
                 </div>
+                {displayMeals}
             </div>
 
 

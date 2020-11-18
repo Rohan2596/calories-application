@@ -9,5 +9,5 @@ module.exports = {
     addMeal:"/meal/add",
     editMeal:"/meal/edit/:userId/:id",
     deleteMeal:"/meal/remove/:userId/:id",
-    getUserMeal:"/meal/all/:userId"
+    getUserMeal:"/meal/all/"
 }

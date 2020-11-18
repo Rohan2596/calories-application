@@ -1,5 +1,5 @@
 const axios = require('axios');
-const {apiUrl,addMeal}=require('../constant');
+const {apiUrl,addMeal,getUserMeal}=require('../constant');
 
 class MealService {
 
@@ -10,6 +10,13 @@ class MealService {
             data: mealDTO
         });
     };
+    getAllUserMeal=()=>{
+        return axios({
+            method:"GET",
+            url:`${apiUrl}${getUserMeal}`+localStorage.getItem('userId'),
+            
+        })
+    }
     
     
 
