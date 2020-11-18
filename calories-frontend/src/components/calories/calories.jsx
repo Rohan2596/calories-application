@@ -11,21 +11,27 @@ export class Calories extends React.Component {
             calCount: '',
             meals: [],
             open: false,
-            setOpen: false
+            setOpen: false,
+            editTitle:'',
+            editCal:'',
+            
         }
     }
+     mealID="";
     handleClickOpen = (item) => {
         this.setState({
             setOpen: true,
             open: true,
-            mealtitle: item.title,
-            calCount: item.caloriesCount,
+            editTitle: item.title,
+            editCal: item.caloriesCount,
         })
 
+        this.mealID=item._id
     };
     handleClose = () => {
         this.setState({
-            setOpen: false
+            setOpen: false,
+            open: false,
         })
     };
     onChangeMealtitle(event) {
@@ -36,6 +42,17 @@ export class Calories extends React.Component {
     onChangeCalCount(event) {
         this.setState({
             calCount: event.target.value
+        })
+
+    }
+    onChangeEditMealtitle(event) {
+        this.setState({
+            editTitle: event.target.value
+        })
+    }
+    onChangeEditCalCount(event) {
+        this.setState({
+            editCal: event.target.value
         })
 
     }
@@ -61,13 +78,28 @@ export class Calories extends React.Component {
         MealService.addMeal(mealDto).then((data) => {
             console.log(data);
             this.getAllUserMeal();
-
+            this.setState({
+                setOpen: false
+            })
         }).catch((err) => {
             console.log(err);
         })
     }
     editMeal(mealId) {
         console.log(mealId);
+        console.log(this.state.editTitle, this.state.editCal);
+        let mealDto = {
+            "title": this.state.editTitle,
+            "caloriesCount": this.state.editCal
+        }
+        MealService.editMeal(mealDto,this.mealID).then((data) => {
+            console.log(data);
+            this.handleClose()
+            this.getAllUserMeal();
+            
+        }).catch((err) => {
+            console.log(err);
+        })
     }
     deleteMeal(mealId) {
         console.log(mealId);
@@ -110,15 +142,15 @@ export class Calories extends React.Component {
                             <div className="form">
                                 <div className="form-group">
                                     <label htmlFor="mealtitle">Meal Title</label>
-                                    <input type="text" name="title" placeholder="Meal Title" value={this.state.mealtitle} onChange={(event) => this.onChangeMealtitle(event)} />
+                                    <input type="text" name="title" placeholder="Meal Title" value={this.state.editTitle} onChange={(event) => this.onChangeEditMealtitle(event)} />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="password">Calories Count</label>
-                                    <input type="number" name="count" placeholder="Calories Count" value={this.state.calCount} onChange={(event) => this.onChangeCalCount(event)} />
+                                    <input type="number" name="count" placeholder="Calories Count" value={this.state.editCal} onChange={(event) => this.onChangeEditCalCount(event)} />
                                 </div>
 
                                 <button type="button" className="btn" onClick={this.editMeal.bind(this)}>
-                                    editMeal
+                                    Edit Meal
 </button>
                             </div>
                         </div>

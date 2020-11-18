@@ -7,7 +7,7 @@ module.exports = {
     resetPassword:"",
     //meals
     addMeal:"/meal/add",
-    editMeal:"/meal/edit/:userId/:id",
+    editMeal:"/meal/edit/",
     deleteMeal:"/meal/remove/",
     getUserMeal:"/meal/all/"
 }
