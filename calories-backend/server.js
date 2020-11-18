@@ -3,6 +3,8 @@ const app=express();
 const calorieRoutes=require('./routes/calories.routes')
 const bodyParser = require('body-parser');
 const createError=require('http-errors')
+const cors = require('cors');
+app.use(cors())
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
@@ -31,6 +33,6 @@ app.use((error,req,res,next)=>{
     res.json(response);
 })
 
-app.listen('3000',()=>{
-    console.log('Server Started at PORT 3000');
+app.listen('3001',()=>{
+    console.log('Server Started at PORT 3001');
 })

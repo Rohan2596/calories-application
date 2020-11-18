@@ -28,7 +28,6 @@ class UserService {
                 "password": req.password
             }
             return userModel.login(auth).then((data) => {
-                console.log(data);
                 return data;
 
             }).catch((err) => {
