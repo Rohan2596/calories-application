@@ -1,4 +1,5 @@
 import React from "react";
+import userService from "../../services/user.service";
 import '/home/admin1/Desktop/BackEndProjects/calories-application/calories-frontend/src/components/style.scss'
 export class Register extends React.Component {
     constructor(props) {
@@ -40,12 +41,20 @@ export class Register extends React.Component {
     }
     onRegister() {
         this.props.callbackFromParent("register");
-        console.log("email:-", this.state.email);
-        console.log("password:-", this.state.password);
-        console.log("firstname:-", this.state.firstname);
-        console.log("lastname:-", this.state.lastname);
-        console.log("mobileNumber:-", this.state.mobileNumber);
-       
+      
+        let addUserDto={
+            "firstName":this.state.firstname,
+            "lastName":this.state.lastname,
+            "email":this.state.email,
+            "mobile":this.state.mobileNumber,
+            "password":this.state.password
+        
+        }
+        userService.addUser(addUserDto).then((data)=>{
+            console.log(data);
+           }).catch((err)=>{
+               console.log(err);
+           })
     }
     render() {
         return (

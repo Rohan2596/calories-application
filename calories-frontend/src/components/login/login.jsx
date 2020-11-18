@@ -1,7 +1,6 @@
 import React from "react";
 import loginImg from "/home/admin1/Desktop/BackEndProjects/calories-application/calories-frontend/src/components/login.svg";
 import '/home/admin1/Desktop/BackEndProjects/calories-application/calories-frontend/src/components/style.scss'
-import UserService from '../../services/user.service'
 import userService from "../../services/user.service";
 export class Login extends React.Component {
     constructor(props) {
