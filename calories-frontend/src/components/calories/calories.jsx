@@ -4,7 +4,27 @@ import '/home/admin1/Desktop/BackEndProjects/calories-application/calories-front
 export class Calories extends React.Component {
     constructor(props) {
         super(props);
+        this.state={
+            mealtitle:'',
+            calCount:''
+        }
     }
+
+    onChangeMealtitle(event){
+          this.setState({
+              mealtitle: event.target.value
+          })
+    }
+    onChangeCalCount(event){
+        this.setState({
+         calCount: event.target.value
+        })
+
+    }
+    addMeal(){
+        console.log(this.state.calCount,this.state.mealtitle);
+    }
+
     render() {
         return (
             <div className="base-container" >
@@ -14,35 +34,35 @@ export class Calories extends React.Component {
                     <div className="form">
                         <div className="form-group">
                             <label htmlFor="mealtitle">Meal Title</label>
-                            <input type="text" name="title" placeholder="Meal Title" />
+                            <input type="text" name="title" placeholder="Meal Title" value={this.state.mealtitle} onChange={(event)=>this.onChangeMealtitle(event)} />
                         </div>
                         <div className="form-group">
                             <label htmlFor="password">Calories Count</label>
-                            <input type="number" name="count" placeholder="Calories Count" />
+                            <input type="number" name="count" placeholder="Calories Count"  value={this.state.calCount}  onChange={(event)=>this.onChangeCalCount(event)}/>
                         </div>
 
-                        <button type="button" className="btn">
+                        <button type="button" className="btn" onClick={this.addMeal.bind(this)}>
                             Add Meal
           </button>
                     </div>
                 </div>
 
-                <div className="userTableMain" >
+                <div className="calTableMain" >
             <div className="leftDiv" >
-                <div className="nameAndEmail">
-                    <div className="usernameDiv">
-                        <div className="tableHeaderTextName">Meals Title </div>
+                <div className="mealandcount">
+                    <div className="mealTitleDiv">
+                        <div className="tableHeaderTitleName">Meals Title </div>
                     </div>
-                    <div className="emailDiv">
-                        <div className="tableHeaderTextEmail">Count</div>
+                    <div className="countDiv">
+                        <div className="tableHeaderTextCount">Count</div>
                     </div>
                 </div>
             </div>
             <div className="rightDiv">
                 <div className="labHeaderDiv">
-                    <div  className="tableHeaderTextLab">Edit</div>
+                    <div  className="tableHeaderTextEdit">Edit</div>
                 </div>
-                <div className='tableHeaderTextStatus' >
+                <div className='tableHeaderTextDelete' >
                     Delete
                 </div>
             </div>

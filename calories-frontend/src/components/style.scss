@@ -84,7 +84,7 @@
       margin-top: 3em;
     }
 
-    .userDisplayMain {
+    .calDisplayMain {
       display        : flex;
       flex-direction : row;
       height         : 60px;
@@ -137,67 +137,32 @@
   .reset{
       width: 120px;
   }
-  .nameText {
-      font-size    : 15px;
-      text-align   : left;
-      color        : #3D3D3D;
-      white-space  : nowrap;
-      overflow     : hidden;
-      text-overflow: ellipsis;
-      // padding-left: 5px;
-      // padding-right: 10px;
-      & .hover{
-          transform: translateX(calc(200px - 100%));
-      }
-  }
   
-  .emailText {
-      @extend .nameText;
   
-  }
-  
-  .nameAndEmail {
+  .mealandcount {
       display        : flex;
       flex-direction : row;
-      width          : 84%;
+      width          : 90%;
       margin-left    : 12px;
       justify-content: space-evenly;
       align-items    : center;
       width          : 90%;
   }
   
-  .usernameDiv {
+  .mealTitleDiv {
       width: 50%;
   }
   
-  .emailDiv {
-      @extend.usernameDiv;
-  }
-  
-  .resetDiv {
-      display       : none;
-      align-self    : flex-end;
-      // display    : flex;
-      flex-direction: row;
-      align-items   : center;
-      margin-left: -28px;
+  .countDiv {
+      @extend.mealTitleDiv;
   }
   
   
-    
   
-  .lockIcon {
   
-      height: 12.5px;
-      width : 12px;
-  }
   
-  .resetText {
   
-      font-size: 15px;
-  }
-  
-  .userTableMain {
+  .calTableMain {
       display        : flex;
       flex-direction : row;
       height         : 40px;
@@ -233,29 +198,24 @@
       text-transform: uppercase;
       opacity       : 0.6;
   }
-  .tableHeaderTextName {
+  .tableHeaderTitleName {
       @extend .tableHeaderText;
       margin-left: 1px;
   }
-  .tableHeaderTextEmail {
+  .tableHeaderTextCount {
       @extend .tableHeaderText;
       margin-left: -2px;
   }
-  .tableHeaderTextLab {
+  .tableHeaderTextEdit {
       @extend .tableHeaderText;
       margin-left: -4px;
   }
-  .tableHeaderTextStatus {
+  .tableHeaderTextDelete {
       @extend .tableHeaderText;
       margin-left: 10px;
   }
-  .tableHeaderTextAction {
-      @extend .tableHeaderText;
-      margin-right: 4px;
-  }
-  .labNameDiv{
-      width:80px
-  }
+
+
   .labHeaderDiv{
       width:40px
   }
