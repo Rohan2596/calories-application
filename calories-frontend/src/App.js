@@ -12,9 +12,7 @@ class App extends React.Component {
       isCaloriesPage: false,
     }
   }
-  changeState() {
 
-  }
   myCallback = (data) => {
     if (data === "login") {
       this.setState({ isActivePage: true })
@@ -23,10 +21,8 @@ class App extends React.Component {
       this.setState({ isActivePage: false })
     }
     if (data === "calories") {
-      console.log("sdfs");
       this.setState({ isCaloriesPage: true })
     }
-
 
   }
   render() {
@@ -34,7 +30,6 @@ class App extends React.Component {
     const components = () => {
       if (this.state.isActivePage) {
         if (this.state.isCaloriesPage) {
-          console.log("inside ");
           return <Calories callbackFromParent={this.myCallback} />
         }
         return <Login callbackFromParent={this.myCallback} />
@@ -42,7 +37,11 @@ class App extends React.Component {
       if (!this.state.isActivePage) {
         return <Register callbackFromParent={this.myCallback} />
       }
-     
+      // if(localStorage.getItem("userId")){
+      //          return <Calories callbackFromParent={this.myCallback} />
+        
+      // }
+
     }
     return (
       <div className="App">

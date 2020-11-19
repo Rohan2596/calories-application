@@ -26,9 +26,7 @@ export class Login extends React.Component {
         this.props.callbackFromParent("login");
         console.log("email:-", this.state.email);
         console.log("password:-", this.state.password);
-        if (this.state.email.length > 0 && this.state.password.length > 0) {
-            console.log("dfsfs");
-        }
+       
         const authDto = {
             "email": this.state.email,
             "password": this.state.password
