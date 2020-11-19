@@ -1,7 +1,23 @@
 const mealService = require('../service/meal.service')
-const userService=require('../service/user.service')
+const userService = require('../service/user.service')
+
+/*
+  @Purpose Meal Controller consist of api endpoints for meal operation.
+  @author Rohan Kadam
+*/
 class MealController {
 
+/*
+  @Purpose Add Meal endpoint passing request body with meal object with USERID into query.
+  @requestbody 
+    {
+        "title":"Chickoo",
+        "caloriesCount":"100"
+    }
+    @method :- POST
+  ex:- http://localhost:3000/calories/meal/add/5fb2130c5841df0c7eeec7be   
+  @author Rohan Kadam
+*/
     addMeal = (req, res, next) => {
         try {
             let response = {}
@@ -27,11 +43,11 @@ class MealController {
                     response.message = data.message;
                     response.data = data.data;
                     response.error = "";
-                    userService.addMealtoUser(data.data).then((meal)=>{
-                         console.log("Meals:-  ",meal);
-                    }).catch((err)=>{
+                    userService.addMealtoUser(data.data).then((meal) => {
+                        console.log("Meals:-  ", meal);
+                    }).catch((err) => {
                         console.log(err);
-                    }) 
+                    })
                     return res.status(200).send(response);
                 }).catch((error) => {
                     response.success = false
@@ -48,6 +64,18 @@ class MealController {
             next(error)
         }
     };
+/*
+  @Purpose Edit Meal endpoint passing request body with meal object with USERID into query 
+            and also mealId.
+  @requestbody 
+    {
+        "title":"Chickoo",
+        "caloriesCount":"100"
+    }
+   @method :- PUT
+  ex:- http://localhost:3000/calories/meal/edit/5fafa3c6dbeb32684ca97d6e/5fb1371aca5fea421ac38878 
+  @author Rohan Kadam
+*/
     editMeal = (req, res, next) => {
         try {
             let response = {}
@@ -101,6 +129,12 @@ class MealController {
             next(error)
         }
     };
+/*
+  @Purpose Delete User Meals endpoint  USERID into query and MEALID.
+   @method :- DELETE
+  ex:- http://localhost:3000/calories/meal/all/5fb2130c5841df0c7eeec7be
+  @author Rohan Kadam
+*/
     deleteMeal = (req, res, next) => {
         try {
             let response = {}
@@ -140,6 +174,12 @@ class MealController {
             next(error)
         }
     };
+/*
+  @Purpose Getting User Meals endpoint  USERID into query.
+   @method :- GET
+  ex:- http://localhost:3000/calories/meal/all/5fb2130c5841df0c7eeec7be
+  @author Rohan Kadam
+*/
     getAllUserMeals = (req, res, next) => {
         try {
             let response = {}

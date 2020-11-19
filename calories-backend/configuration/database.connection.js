@@ -1,6 +1,12 @@
+
+/*
+*@purpose Database Configuration for MONGODB
+*@author  Rohan Kadam 
+*/
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
+//to use change database url according to it.
 mongoose.connect('mongodb://localhost:27017/caloriesDB',
     {
         useUnifiedTopology: true,

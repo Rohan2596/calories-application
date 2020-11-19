@@ -1,7 +1,24 @@
 const userService = require('../service/user.service')
-
+/*
+  @Purpose User Controller consist of api endpoints for meal operation.
+  @author Rohan Kadam
+*/
 class UserController {
 
+    /*
+      @Purpose Add/Register User endpoint passing request body with user.
+      @requestbody 
+        {
+        "firstName":"Rohan",
+        "lastName":"Kadam",
+        "email":"rohankadam@gmail.com",
+        "mobile":"7894561230",
+        "password":"Rohan789"
+        }
+        @method :- POST
+      ex:- http://localhost:3001/calories/user/add   
+      @author Rohan Kadam
+    */
     userRegister = (req, res, next) => {
         try {
             let response = {};
@@ -45,6 +62,18 @@ class UserController {
             next(error)
         }
     };
+
+    /*
+      @Purpose Authenticate/Login User endpoint passing request body with authBOdy.
+      @requestbody 
+        {
+        "email":"rohankadam@gmail.com",
+        "password":"Rohan789"
+        }
+        @method :- POST
+      ex:- http://localhost:3001/calories/user/auth   
+      @author Rohan Kadam
+    */
     userLogin = (req, res, next) => {
         try {
             let response = {};
@@ -87,6 +116,12 @@ class UserController {
 
         }
     };
+    /*
+      @Purpose Getting a User endpoint passing userId into query.
+      @method :- GET
+      ex:- http://localhost:3000/calories/user/detail/5fb205ef81e2e67f4ea6bc66  
+      @author Rohan Kadam
+    */
     userDetails = (req, res, next) => {
         try {
             const response = {};
@@ -118,6 +153,12 @@ class UserController {
             next(error)
         }
     };
+    /*
+  @Purpose Getting ALL User endpoint.
+  @method :- GET
+  ex:- http://localhost:3001/calories/user/all  
+  @author Rohan Kadam
+*/
     getAllUser = (req, res, next) => {
         try {
             const response = {};
@@ -142,6 +183,16 @@ class UserController {
 
         }
     };
+    /*
+      @Purpose Forgot Password User endpoint passing request body with emailId.
+      @requestbody 
+        {
+        "email":"rohankadam@gmail.com"
+        }
+        @method :- GET
+      ex:- http://localhost:3001/calories/user/password/forgot   
+      @author Rohan Kadam
+    */
     forgotPassword = (req, res, next) => {
         try {
             const response = {};
@@ -177,6 +228,18 @@ class UserController {
             next(error)
         }
     };
+    /*
+      @Purpose ReSet Password User endpoint passing request body with password and userId.
+      @requestbody 
+    {
+         "password":"Rohan001",
+         "confirmPassword":"Rohan001"
+
+    }
+       @method :- POST
+      ex:- http://localhost:3001/calories/user/password/reset/5fafa3c6dbeb32684ca97d6e   
+      @author Rohan Kadam
+    */
     resetPassword = (req, res, next) => {
         try {
             const response = {};
